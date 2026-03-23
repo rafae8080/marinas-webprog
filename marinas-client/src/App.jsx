@@ -1,17 +1,38 @@
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// HomePage Structure
+import Layout from "./components/Layout";
+import ArticlePage from "./pages/ArticlePage";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+
+const routes = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path: "articles",
+        element: <ArticlePage />,
+      },
+    ],
+  },
+];
+
+const router = createBrowserRouter(routes);
 
 function App() {
   return (
     <>
-      <h1>Welcome to My React App!</h1>
-      <p>
-        Name: Rafael Marinas <br />
-        Email: rafael.marinas@example.com <br />
-        Other Personal Info:{" "}
-        <a href="https://github.com/rafae8080/marinas-webprog" target="_blank">
-          Github Repository
-        </a>
-      </p>
+      <RouterProvider router={router} />
     </>
   );
 }
