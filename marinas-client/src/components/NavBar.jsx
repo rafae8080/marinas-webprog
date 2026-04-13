@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import Button from "./Button";
 
 const links = [
   { label: "Home", to: "/" },
@@ -34,6 +35,8 @@ const NavBar = () => {
             </NavLink>
           ))}
         </nav>
+
+        <Button to="/auth/signin">Sign In</Button>
       </div>
     </header>
   );

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import Button from "../components/Button";
-import articles from "../assets/article-content";
+import Button from "../../components/Button";
+import articles from "../../assets/article-content";
 
 function ArticlePage() {
   const { name } = useParams();
