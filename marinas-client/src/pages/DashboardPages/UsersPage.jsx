@@ -7,104 +7,27 @@ import {
   Stack,
   Divider,
   Avatar,
-  Chip,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 // ── Sample user data ─────────────────────────────────────────────
 const rows = [
-  {
-    id: 1,
-    firstName: "Jon",
-    lastName: "Snow",
-    age: 35,
-    role: "Admin",
-    status: "Active",
-    email: "jon.snow@email.com",
-  },
-  {
-    id: 2,
-    firstName: "Cersei",
-    lastName: "Lannister",
-    age: 42,
-    role: "Manager",
-    status: "Active",
-    email: "cersei.l@email.com",
-  },
-  {
-    id: 3,
-    firstName: "Jaime",
-    lastName: "Lannister",
-    age: 45,
-    role: "Editor",
-    status: "Inactive",
-    email: "jaime.l@email.com",
-  },
-  {
-    id: 4,
-    firstName: "Arya",
-    lastName: "Stark",
-    age: 16,
-    role: "Viewer",
-    status: "Active",
-    email: "arya.stark@email.com",
-  },
-  {
-    id: 5,
-    firstName: "Daenerys",
-    lastName: "Targaryen",
-    age: null,
-    role: "Admin",
-    status: "Active",
-    email: "dany.t@email.com",
-  },
-  {
-    id: 6,
-    firstName: null,
-    lastName: "Melisandre",
-    age: 150,
-    role: "Viewer",
-    status: "Inactive",
-    email: "mel@email.com",
-  },
-  {
-    id: 7,
-    firstName: "Ferrara",
-    lastName: "Clifford",
-    age: 44,
-    role: "Editor",
-    status: "Active",
-    email: "ferrara.c@email.com",
-  },
-  {
-    id: 8,
-    firstName: "Rossini",
-    lastName: "Frances",
-    age: 36,
-    role: "Manager",
-    status: "Active",
-    email: "rossini.f@email.com",
-  },
-  {
-    id: 9,
-    firstName: "Harvey",
-    lastName: "Roxie",
-    age: 65,
-    role: "Viewer",
-    status: "Inactive",
-    email: "harvey.r@email.com",
-  },
+  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
+  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
+  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
+  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
+  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 ];
 
 // ── Summary cards ────────────────────────────────────────────────
 const totalUsers = rows.length;
-const activeUsers = rows.filter((r) => r.status === "Active").length;
-const inactiveUsers = rows.filter((r) => r.status === "Inactive").length;
 
 const summaryCards = [
   { label: "Total Users", value: totalUsers, color: "#1976d2" },
-  { label: "Active Users", value: activeUsers, color: "#2e7d32" },
-  { label: "Inactive Users", value: inactiveUsers, color: "#c62828" },
 ];
 
 // ── DataGrid columns ─────────────────────────────────────────────
@@ -135,28 +58,16 @@ const columns = [
       );
     },
   },
-  { field: "firstName", headerName: "First Name", width: 140 },
-  { field: "lastName", headerName: "Last Name", width: 140 },
-  { field: "email", headerName: "Email", width: 210 },
-  { field: "age", headerName: "Age", width: 100 },
-  { field: "role", headerName: "Role", width: 110 },
+  { field: "firstName", headerName: "First Name", width: 150 },
+  { field: "lastName", headerName: "Last Name", width: 150 },
+  { field: "age", headerName: "Age", type: "number", width: 110 },
   {
-    field: "status",
-    headerName: "Status",
-    width: 120,
-    renderCell: ({ value }) => (
-      <Box sx={{ display: "flex", alignItems: "center", height: "100%" }}>
-        <Chip
-          label={value}
-          size="small"
-          sx={{
-            bgcolor: value === "Active" ? "#e8f5e9" : "#ffebee",
-            color: value === "Active" ? "#2e7d32" : "#c62828",
-            fontWeight: 600,
-          }}
-        />
-      </Box>
-    ),
+    field: "fullName",
+    headerName: "Full Name",
+    description: "This column has a value getter and is not sortable.",
+    sortable: false,
+    width: 160,
+    valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
   },
 ];
 
