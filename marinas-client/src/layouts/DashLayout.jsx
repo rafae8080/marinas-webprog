@@ -276,7 +276,7 @@ const DashLayout = () => {
       </Drawer>
 
       {/* ── Main content ── */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, minWidth: 0, overflowX: "hidden" }}>
         <DrawerHeader />
         <Outlet />
       </Box>
