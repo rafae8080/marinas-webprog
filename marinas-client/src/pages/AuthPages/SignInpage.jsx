@@ -66,7 +66,12 @@ const SignInPage = () => {
           </label>
         </div>
 
-        <Button to="/" type="submit" variant="primary" className="w-full">
+        <Button
+          to="/dashboard"
+          type="submit"
+          variant="primary"
+          className="w-full"
+        >
           Sign In
         </Button>
 
