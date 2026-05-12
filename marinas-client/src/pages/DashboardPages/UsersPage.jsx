@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Alert,
   Box,
   Button,
   Chip,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -24,7 +26,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { DataGrid } from "@mui/x-data-grid";
-import usersSeed from "../../assets/users.json?raw";
+import { fetchUsers, createUser, updateUser } from "../../services/UserService";
 
 // ── Constants ────────────────────────────────────────────────────
 const roles = ["admin", "editor", "viewer"];
@@ -48,61 +50,23 @@ const blankForm = {
 const labelize = (value) =>
   value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : "";
 
-const loadUsers = () => {
-  try {
-    return {
-      users: JSON.parse(usersSeed).map((user, index) => ({
-        id: Number(user.id) || index + 1,
-        firstName: String(user.firstName ?? "").trim(),
-        lastName: String(user.lastName ?? "").trim(),
-        age: String(user.age ?? "").trim(),
-        gender: genders.includes(
-          String(user.gender ?? "")
-            .trim()
-            .toLowerCase(),
-        )
-          ? String(user.gender ?? "")
-              .trim()
-              .toLowerCase()
-          : "",
-        contactNumber: String(user.contactNumber ?? "").trim(),
-        email: String(user.email ?? "")
-          .trim()
-          .toLowerCase(),
-        role: roles.includes(
-          String(user.role ?? "")
-            .trim()
-            .toLowerCase(),
-        )
-          ? String(user.role ?? "")
-              .trim()
-              .toLowerCase()
-          : "editor",
-        username: String(user.username ?? "")
-          .trim()
-          .toLowerCase(),
-        password: String(user.password ?? "").trim(),
-        address: String(user.address ?? "").trim(),
-        isActive: typeof user.isActive === "boolean" ? user.isActive : true,
-      })),
-      error: "",
-    };
-  } catch {
-    return {
-      users: [],
-      error: "Unable to read users from src/assets/users.json.",
-    };
-  }
-};
-
-const seed = loadUsers();
-
 // ── Component ────────────────────────────────────────────────────
 const UsersPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
-  const [users, setUsers] = useState(seed.users);
+  // Enhancement 1: Editors cannot access the UsersPage
+  useEffect(() => {
+    const type = localStorage.getItem("type");
+    if (type === "editor") {
+      navigate("/dashboard");
+    }
+  }, []);
+
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [pageError, setPageError] = useState("");
   const [form, setForm] = useState({ ...blankForm });
   const [modal, setModal] = useState({ open: false, id: null });
   const [errors, setErrors] = useState({});
@@ -114,6 +78,24 @@ const UsersPage = () => {
   const [filterGender, setFilterGender] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
+  // ── Load users from API ──
+  const loadUsers = async () => {
+    try {
+      setLoading(true);
+      const { data } = await fetchUsers();
+      setUsers(data.users.map((u) => ({ ...u, id: u._id, role: u.type })));
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setPageError("Unable to load users. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   // ── Reset form ──
   const resetForm = () => {
     setForm({ ...blankForm });
@@ -123,7 +105,7 @@ const UsersPage = () => {
   // ── Open modal ──
   const openModal = (user) => {
     setModal({ open: true, id: user?.id ?? null });
-    setForm(user ? { ...blankForm, ...user } : { ...blankForm });
+    setForm(user ? { ...blankForm, ...user, password: "" } : { ...blankForm });
     setErrors({});
   };
 
@@ -160,13 +142,17 @@ const UsersPage = () => {
       ["email", "Email"],
       ["role", "Role"],
       ["username", "Username"],
-      ["password", "Password"],
       ["address", "Address"],
     ].forEach(([key, label]) => {
       if (!String(form[key]).trim()) {
         nextErrors[key] = `${label} is required.`;
       }
     });
+
+    // Password required only when adding a new user
+    if (!modal.id && !String(form.password).trim()) {
+      nextErrors.password = "Password is required.";
+    }
 
     // Age: numbers only
     if (!nextErrors.age && !/^\d+$/.test(String(form.age).trim())) {
@@ -198,8 +184,8 @@ const UsersPage = () => {
       nextErrors.email = "Email address already exists.";
     }
 
-    // Password: at least 8 characters
-    if (!nextErrors.password && form.password.length < 8) {
+    // Password: at least 8 characters (only if provided or adding new user)
+    if (form.password && form.password.length < 8) {
       nextErrors.password = "Password must be at least 8 characters.";
     }
 
@@ -219,7 +205,7 @@ const UsersPage = () => {
   };
 
   // ── Submit ──
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const nextErrors = validate();
 
@@ -235,37 +221,46 @@ const UsersPage = () => {
       gender: form.gender.trim().toLowerCase(),
       contactNumber: form.contactNumber.trim(),
       email: form.email.trim().toLowerCase(),
-      role: form.role.trim().toLowerCase(),
+      type: form.role.trim().toLowerCase(),
       username: form.username.trim().toLowerCase(),
-      password: form.password,
       address: form.address.trim(),
       isActive: form.isActive,
     };
 
-    setUsers((prev) =>
-      modal.id
-        ? prev.map((u) => (u.id === modal.id ? { ...u, ...nextUser } : u))
-        : [
-            ...prev,
-            {
-              id:
-                prev.reduce(
-                  (max, u) => Math.max(max, Number(u.id) || 0),
-                  0,
-                ) + 1,
-              ...nextUser,
-            },
-          ],
-    );
+    // Only include password if it was filled in
+    if (form.password) {
+      nextUser.password = form.password;
+    }
 
-    closeModal();
+    try {
+      if (modal.id) {
+        // Update existing user
+        await updateUser(modal.id, nextUser);
+      } else {
+        // Create new user
+        await createUser(nextUser);
+      }
+      await loadUsers(); // Reload users from API
+      closeModal();
+    } catch (error) {
+      console.error("Error saving user:", error);
+      setErrors((prev) => ({
+        ...prev,
+        _form:
+          error.response?.data?.message ||
+          "Error saving user. Please try again.",
+      }));
+    }
   };
 
   // ── Toggle active status ──
-  const toggleStatus = (id) => {
-    setUsers((prev) =>
-      prev.map((u) => (u.id === id ? { ...u, isActive: !u.isActive } : u)),
-    );
+  const toggleStatus = async (id, isActive) => {
+    try {
+      await updateUser(id, { isActive: !isActive });
+      await loadUsers(); // Reload users after toggling
+    } catch (error) {
+      console.error("Error toggling user status:", error);
+    }
   };
 
   // ── Filtered rows ──
@@ -359,7 +354,7 @@ const UsersPage = () => {
             size="small"
             variant="contained"
             color={row.isActive ? "warning" : "success"}
-            onClick={() => toggleStatus(row.id)}
+            onClick={() => toggleStatus(row.id, row.isActive)}
           >
             {row.isActive ? "Disable" : "Activate"}
           </Button>
@@ -392,10 +387,10 @@ const UsersPage = () => {
         </Button>
       </Box>
 
-      {/* ── Error alert ── */}
-      {seed.error ? (
+      {/* ── Page-level error alert ── */}
+      {pageError ? (
         <Alert severity="error" sx={{ mb: 2 }}>
-          {seed.error}
+          {pageError}
         </Alert>
       ) : null}
 
@@ -487,7 +482,11 @@ const UsersPage = () => {
 
       {/* ── DataGrid ── */}
       <Paper sx={{ p: { xs: 1.5, sm: 2 }, minWidth: 0, overflow: "hidden" }}>
-        {users.length ? (
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+            <CircularProgress />
+          </Box>
+        ) : users.length ? (
           <Box
             sx={{ height: { xs: 460, sm: 520 }, width: "100%", minWidth: 0 }}
           >
@@ -527,6 +526,11 @@ const UsersPage = () => {
 
           <DialogContent dividers sx={{ pt: 2, sm: 3 }}>
             <Stack spacing={2}>
+              {/* Form-level error */}
+              {errors._form ? (
+                <Alert severity="error">{errors._form}</Alert>
+              ) : null}
+
               {/* First & Last name */}
               <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
                 <TextField {...fieldProps("firstName", "First Name")} />
@@ -571,27 +575,37 @@ const UsersPage = () => {
 
               {/* Password */}
               <TextField
-                {...fieldProps("password", "Password", {
-                  type: showPassword ? "text" : "password",
-                  slotProps: {
-                    input: {
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            edge="end"
-                            onClick={() => setShowPassword((prev) => !prev)}
-                            onMouseDown={(event) => event.preventDefault()}
-                            aria-label={
-                              showPassword ? "Hide password" : "Show password"
-                            }
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
+                {...fieldProps(
+                  "password",
+                  modal.id
+                    ? "Password (leave blank to keep unchanged)"
+                    : "Password",
+                  {
+                    type: showPassword ? "text" : "password",
+                    slotProps: {
+                      input: {
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              edge="end"
+                              onClick={() => setShowPassword((prev) => !prev)}
+                              onMouseDown={(event) => event.preventDefault()}
+                              aria-label={
+                                showPassword ? "Hide password" : "Show password"
+                              }
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      },
                     },
                   },
-                })}
+                )}
               />
 
               {/* Address */}
