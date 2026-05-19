@@ -6,6 +6,10 @@ import {
   Button,
   Chip,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   InputAdornment,
   MenuItem,
   Paper,
@@ -13,9 +17,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchArticles } from "../../services/ArticleService";
+import { fetchArticles, createArticle } from "../../services/ArticleService";
 
 const tags = ["Web Development", "Design Systems", "Mobile Dev", "Databases"];
 
@@ -28,6 +33,63 @@ const DashArticleListPage = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filterTag, setFilterTag] = useState("");
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const emptyForm = { title: "", tag: "", img: "", alt: "", content: "" };
+  const [form, setForm] = useState(emptyForm);
+
+  const handleFormChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const slugify = (str) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-");
+
+  const handleAddArticle = async () => {
+    setFormError("");
+    if (!form.title || !form.tag || !form.content) {
+      setFormError("Title, tag, and content are required.");
+      return;
+    }
+    const paragraphs = form.content
+      .split(/\n\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    if (!paragraphs.length) {
+      setFormError("Content must have at least one paragraph.");
+      return;
+    }
+    const payload = {
+      name: slugify(form.title),
+      tag: form.tag,
+      title: form.title.trim(),
+      img: form.img.trim(),
+      alt: form.alt.trim(),
+      content: paragraphs,
+    };
+    try {
+      setSubmitting(true);
+      const { data } = await createArticle(payload);
+      setArticles((prev) => [
+        ...prev,
+        { ...data.article, id: prev.length + 1 },
+      ]);
+      setForm(emptyForm);
+      setDialogOpen(false);
+    } catch (err) {
+      setFormError(
+        err?.response?.data?.message || "Failed to add article. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -105,8 +167,15 @@ const DashArticleListPage = () => {
   return (
     <Box sx={{ width: "100%", minWidth: 0 }}>
       {/* Header */}
-      <Box sx={{ mb: 3 }}>
+      <Box sx={{ mb: 3, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Typography variant="h4">Articles</Typography>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => { setFormError(""); setDialogOpen(true); }}
+        >
+          Add Article
+        </Button>
       </Box>
 
       {pageError ? (
@@ -198,6 +267,67 @@ const DashArticleListPage = () => {
           <Alert severity="info">No articles found.</Alert>
         )}
       </Paper>
+      {/* Add Article Dialog */}
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="sm">
+        <DialogTitle>Add Article</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            {formError ? <Alert severity="error">{formError}</Alert> : null}
+            <TextField
+              label="Title"
+              name="title"
+              value={form.title}
+              onChange={handleFormChange}
+              fullWidth
+              required
+            />
+            <TextField
+              select
+              label="Tag"
+              name="tag"
+              value={form.tag}
+              onChange={handleFormChange}
+              fullWidth
+              required
+            >
+              {tags.map((t) => (
+                <MenuItem key={t} value={t}>{t}</MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              label="Image URL"
+              name="img"
+              value={form.img}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              label="Image Alt Text"
+              name="alt"
+              value={form.alt}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              label="Content"
+              name="content"
+              value={form.content}
+              onChange={handleFormChange}
+              fullWidth
+              required
+              multiline
+              minRows={5}
+              helperText="Separate paragraphs with a blank line."
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)} color="inherit">Cancel</Button>
+          <Button onClick={handleAddArticle} variant="contained" disabled={submitting}>
+            {submitting ? "Adding…" : "Add"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

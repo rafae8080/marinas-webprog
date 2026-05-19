@@ -1,8 +1,15 @@
+import { useState, useEffect } from "react";
 import Button from "../../components/Button";
 import ArticleList from "../../components/ArticleList";
-import articles from "../../../src/assets/data/article-content";
+import { fetchArticles } from "../../services/ArticleService";
 
 const ArticleListPage = () => {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    fetchArticles().then(({ data }) => setArticles(data.articles));
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-6">
       {/* Header */}

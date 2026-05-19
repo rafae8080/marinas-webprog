@@ -141,4 +141,17 @@ const getArticleByName = (req, res) => {
   res.json({ article });
 };
 
-module.exports = { getArticles, getArticleByName };
+const createArticle = (req, res) => {
+  const { name, tag, title, img, alt, content } = req.body;
+  if (!name || !tag || !title || !content) {
+    return res.status(400).json({ message: "name, tag, title, and content are required." });
+  }
+  if (articles.find((a) => a.name === name)) {
+    return res.status(409).json({ message: "An article with that slug already exists." });
+  }
+  const article = { name, tag, title, img: img || "", alt: alt || "", content };
+  articles.push(article);
+  res.status(201).json({ article });
+};
+
+module.exports = { getArticles, getArticleByName, createArticle };

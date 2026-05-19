@@ -7,3 +7,4 @@ const API = axios.create({
 
 export const fetchArticles = () => API.get("/");
 export const fetchArticleByName = (name) => API.get(`/${name}`);
+export const createArticle = (data) => API.post("/", data);
