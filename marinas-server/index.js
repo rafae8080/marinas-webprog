@@ -27,7 +27,6 @@ const corsOptions = {
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
-app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 
 // Routes
