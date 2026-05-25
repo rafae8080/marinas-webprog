@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // vercel options
 const corsOptions = {
   origin: "*",
-  credentials: true,
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   preflightContinue: false,
