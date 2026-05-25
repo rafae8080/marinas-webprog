@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
+import GlobalStyles from "@mui/material/GlobalStyles";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
@@ -150,152 +151,129 @@ const rows = [
   },
 ];
 
+// ── Print table styles ──────────────────────────────────────────
+const cap = function (s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : "-";
+};
+const ptTh = {
+  padding: "8px 9px",
+  textAlign: "left",
+  fontWeight: 600,
+  fontSize: "10px",
+  color: "#fff",
+  textTransform: "uppercase",
+  letterSpacing: "0.05em",
+  whiteSpace: "nowrap",
+};
+const ptTd = {
+  padding: "6px 9px",
+  borderBottom: "1px solid #e5e7eb",
+  color: "#374151",
+};
+const ptBadgeActive = {
+  display: "inline-block",
+  padding: "2px 8px",
+  borderRadius: "999px",
+  fontSize: "10px",
+  fontWeight: 600,
+  background: "#d1fae5",
+  color: "#065f46",
+  border: "1px solid #34d399",
+};
+const ptBadgeInactive = {
+  display: "inline-block",
+  padding: "2px 8px",
+  borderRadius: "999px",
+  fontSize: "10px",
+  fontWeight: 600,
+  background: "#f3f4f6",
+  color: "#6b7280",
+  border: "1px solid #d1d5db",
+};
+
+// ── @media print CSS ────────────────────────────────────────────
+const printStyles = `
+  @media print {
+    @page { size: A4; margin: 18mm; }
+    body { background: white !important; }
+    .MuiAppBar-root,
+    .MuiDrawer-root { display: none !important; }
+    main > div:first-child { display: none !important; }
+    main { padding: 0 !important; }
+    [data-print-skip] { display: none !important; }
+    [data-print-header] {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #1976d2;
+    }
+    [data-print-only] { display: block !important; }
+    [data-print-row] {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      gap: 12px !important;
+    }
+    [data-print-row] > * { flex: 1 1 0 !important; min-width: 0 !important; }
+    .MuiCard-root {
+      box-shadow: none !important;
+      border: 1px solid #e5e7eb !important;
+      break-inside: avoid;
+      margin-bottom: 12px !important;
+    }
+    * {
+      print-color-adjust: exact !important;
+      -webkit-print-color-adjust: exact !important;
+    }
+  }
+`;
+
 // ─────────────────────────────────────────────────────────────────
 const ReportsPage = function () {
-  const printRef = useRef(null);
+  const exportDateRef = useRef(null);
 
   const handlePrint = function () {
-    var printContent = printRef.current;
-    if (!printContent) return;
-
-    var printWindow = window.open("", "_blank", "width=1200,height=900");
-    if (!printWindow) return;
-
-    var exportedAt = new Intl.DateTimeFormat("en-US", {
-      dateStyle: "long",
-      timeStyle: "short",
-    }).format(new Date());
-
-    var cap = function (s) {
-      return s ? s.charAt(0).toUpperCase() + s.slice(1) : "-";
-    };
-
-    var tableRows = rows
-      .map(function (row) {
-        var badgeClass = row.isActive ? "badge-active" : "badge-inactive";
-        var badgeText = row.isActive ? "Active" : "Inactive";
-        return (
-          "<tr>" +
-          "<td>" +
-          row.id +
-          "</td>" +
-          "<td>" +
-          row.firstName +
-          " " +
-          row.lastName +
-          "</td>" +
-          "<td>" +
-          row.username +
-          "</td>" +
-          "<td>" +
-          row.age +
-          "</td>" +
-          "<td>" +
-          cap(row.gender) +
-          "</td>" +
-          "<td>" +
-          row.contactNumber +
-          "</td>" +
-          "<td>" +
-          row.email +
-          "</td>" +
-          "<td>" +
-          cap(row.role) +
-          "</td>" +
-          '<td><span class="' +
-          badgeClass +
-          '">' +
-          badgeText +
-          "</span></td>" +
-          "</tr>"
-        );
-      })
-      .join("");
-
-    var headMarkup = Array.from(
-      document.querySelectorAll("style, link[rel='stylesheet']"),
-    )
-      .map(function (node) {
-        return node.outerHTML;
-      })
-      .join("");
-
-    // Use full innerHTML; DataGrid card is hidden via [data-print-skip] CSS
-    var contentHTML = printContent.innerHTML;
-
-    printWindow.document.write(
-      "<!DOCTYPE html>" +
-        '<html lang="en"><head>' +
-        '<meta charset="UTF-8" />' +
-        "<title>Report Summary</title>" +
-        headMarkup +
-        "<style>" +
-        "@page { size: A4; margin: 18mm; }" +
-        "* { box-sizing: border-box; }" +
-        'body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #fff; color: #111827; font-size: 13px; }' +
-        /* hide DataGrid card */
-        "[data-print-skip] { display: none !important; }" +
-        /* force horizontal layout for tagged stacks */
-        "[data-print-row] { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 12px !important; }" +
-        "[data-print-row] > * { flex: 1 1 0 !important; min-width: 0 !important; }" +
-        ".rpt-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; margin-bottom: 22px; border-bottom: 2px solid #1976d2; }" +
-        ".rpt-header h1 { margin: 0 0 4px; font-size: 24px; font-weight: 700; color: #1e3a5f; }" +
-        ".rpt-header .subtitle { margin: 0; font-size: 12px; color: #6b7280; max-width: 380px; line-height: 1.5; }" +
-        ".rpt-header .meta { text-align: right; font-size: 11px; color: #6b7280; line-height: 1.7; }" +
-        ".section-title { margin: 0 0 10px; font-size: 11px; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }" +
-        ".charts-wrap { margin-bottom: 24px; }" +
-        ".charts-wrap .MuiCard-root, .charts-wrap .MuiPaper-root { box-shadow: none !important; border: 1px solid #e5e7eb !important; border-radius: 8px; break-inside: avoid; margin-bottom: 12px; }" +
-        ".charts-wrap .MuiCardContent-root { padding: 16px !important; }" +
-        ".charts-wrap svg { max-width: 100%; }" +
-        ".charts-wrap .MuiTypography-h6 { font-size: 14px; font-weight: 600; }" +
-        ".charts-wrap .MuiTypography-h4 { font-size: 22px; font-weight: 700; }" +
-        ".charts-wrap .MuiTypography-overline { font-size: 10px; color: #9ca3af; }" +
-        "table { width: 100%; border-collapse: collapse; font-size: 11px; }" +
-        "thead tr { background: #1e3a5f; }" +
-        "thead th { padding: 8px 9px; text-align: left; font-weight: 600; font-size: 10px; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }" +
-        "tbody tr:nth-child(even) { background: #f9fafb; }" +
-        "tbody td { padding: 6px 9px; border-bottom: 1px solid #e5e7eb; color: #374151; }" +
-        ".badge-active { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; background: #d1fae5; color: #065f46; border: 1px solid #34d399; }" +
-        ".badge-inactive { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }" +
-        ".rpt-footer { margin-top: 24px; padding-top: 10px; border-top: 1px solid #e5e7eb; font-size: 10px; color: #9ca3af; display: flex; justify-content: space-between; }" +
-        "</style></head><body>" +
-        '<header class="rpt-header">' +
-        "<div><h1>Report Summary</h1>" +
-        '<p class="subtitle">Analytics overview for generated reports, category breakdown, and completion performance.</p></div>' +
-        '<div class="meta"><strong>Prepared on</strong><br />' +
-        exportedAt +
-        "<br />" +
-        "</header>" +
-        '<p class="section-title">Analytics Overview</p>' +
-        '<div class="charts-wrap">' +
-        contentHTML +
-        "</div>" +
-        //table
-        '<p class="section-title">User Records</p>' +
-        "<table><thead><tr>" +
-        "<th>ID</th><th>Full Name</th><th>Username</th><th>Age</th><th>Gender</th><th>Contact</th><th>Email</th><th>Role</th><th>Status</th>" +
-        "</tr></thead><tbody>" +
-        tableRows +
-        "</tbody></table>" +
-        '<footer class="rpt-footer">' +
-        "<span>Marinas System</span>" +
-        "</footer>" +
-        "</body></html>",
-    );
-
-    printWindow.document.close();
-
-    // Wait for the window to fully render (including chart SVGs) before printing
-    printWindow.onload = function () {
-      printWindow.focus();
-      printWindow.print();
-    };
+    if (exportDateRef.current) {
+      exportDateRef.current.textContent = new Intl.DateTimeFormat("en-US", {
+        dateStyle: "long",
+        timeStyle: "short",
+      }).format(new Date());
+    }
+    window.print();
   };
 
   return (
     <Box>
-      {/* ── Header row — props moved to sx to avoid React DOM warnings ── */}
+      <GlobalStyles styles={printStyles} />
+
+      {/* ── Print-only report header ── */}
+      <Box data-print-header sx={{ display: "none" }}>
+        <Box>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 700, color: "#1e3a5f", mb: 0.5 }}
+          >
+            Report Summary
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Analytics overview for generated reports, category breakdown, and
+            completion performance.
+          </Typography>
+        </Box>
+        <Box
+          sx={{ textAlign: "right", fontSize: "11px", color: "#6b7280", lineHeight: 1.7 }}
+        >
+          <strong>Prepared on</strong>
+          <br />
+          <span ref={exportDateRef} />
+        </Box>
+      </Box>
+
+      {/* ── Header row — hidden in print ── */}
       <Stack
+        data-print-skip
         direction={{ xs: "column", md: "row" }}
         spacing={2}
         sx={{
@@ -323,8 +301,8 @@ const ReportsPage = function () {
         </Stack>
       </Stack>
 
-      {/* ── Printable content ── */}
-      <Stack ref={printRef} spacing={3}>
+      {/* ── Content ── */}
+      <Stack spacing={3}>
         {/* Stat cards row */}
         <Stack direction={{ xs: "column", sm: "row" }} spacing={2} data-print-row>
           {statCards.map(function ({ label, value, accent }) {
@@ -435,7 +413,7 @@ const ReportsPage = function () {
           </Card>
         </Stack>
 
-        {/* DataGrid card — hidden in print via data-print-skip */}
+        {/* DataGrid card — hidden in print */}
         <Card data-print-skip="true">
           <CardContent>
             <Typography variant="h6" gutterBottom>
@@ -461,6 +439,90 @@ const ReportsPage = function () {
             />
           </CardContent>
         </Card>
+
+        {/* Print-only user table */}
+        <Box data-print-only sx={{ display: "none", mt: 1 }}>
+          <Typography
+            sx={{
+              fontSize: "11px",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#374151",
+              borderBottom: "1px solid #e5e7eb",
+              pb: "6px",
+              mb: 1,
+            }}
+          >
+            User Records
+          </Typography>
+          <table
+            style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px" }}
+          >
+            <thead>
+              <tr style={{ background: "#1e3a5f" }}>
+                {[
+                  "ID",
+                  "Full Name",
+                  "Username",
+                  "Age",
+                  "Gender",
+                  "Contact",
+                  "Email",
+                  "Role",
+                  "Status",
+                ].map(function (h) {
+                  return (
+                    <th key={h} style={ptTh}>
+                      {h}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(function (row, i) {
+                return (
+                  <tr
+                    key={row.id}
+                    style={{ background: i % 2 === 0 ? "#fff" : "#f9fafb" }}
+                  >
+                    <td style={ptTd}>{row.id}</td>
+                    <td style={ptTd}>
+                      {row.firstName} {row.lastName}
+                    </td>
+                    <td style={ptTd}>{row.username}</td>
+                    <td style={ptTd}>{row.age}</td>
+                    <td style={ptTd}>{cap(row.gender)}</td>
+                    <td style={ptTd}>{row.contactNumber}</td>
+                    <td style={ptTd}>{row.email}</td>
+                    <td style={ptTd}>{cap(row.role)}</td>
+                    <td style={ptTd}>
+                      <span style={row.isActive ? ptBadgeActive : ptBadgeInactive}>
+                        {row.isActive ? "Active" : "Inactive"}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Box>
+
+        {/* Print-only footer */}
+        <Box
+          data-print-only
+          sx={{
+            display: "none",
+            mt: 3,
+            pt: 1,
+            borderTop: "1px solid #e5e7eb",
+          }}
+        >
+          <Typography sx={{ fontSize: "10px", color: "#9ca3af" }}>
+            Marinas System
+          </Typography>
+        </Box>
       </Stack>
     </Box>
   );
