@@ -235,6 +235,9 @@ const ReportsPage = function () {
         'body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; background: #fff; color: #111827; font-size: 13px; }' +
         /* hide DataGrid card */
         "[data-print-skip] { display: none !important; }" +
+        /* force horizontal layout for tagged stacks */
+        "[data-print-row] { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: 12px !important; }" +
+        "[data-print-row] > * { flex: 1 1 0 !important; min-width: 0 !important; }" +
         ".rpt-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; margin-bottom: 22px; border-bottom: 2px solid #1976d2; }" +
         ".rpt-header h1 { margin: 0 0 4px; font-size: 24px; font-weight: 700; color: #1e3a5f; }" +
         ".rpt-header .subtitle { margin: 0; font-size: 12px; color: #6b7280; max-width: 380px; line-height: 1.5; }" +
@@ -323,7 +326,7 @@ const ReportsPage = function () {
       {/* ── Printable content ── */}
       <Stack ref={printRef} spacing={3}>
         {/* Stat cards row */}
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={2} data-print-row>
           {statCards.map(function ({ label, value, accent }) {
             return (
               <Card key={label} sx={{ flex: 1 }}>
@@ -378,7 +381,7 @@ const ReportsPage = function () {
         </Card>
 
         {/* Pie + Gauge row */}
-        <Stack direction={{ xs: "column", lg: "row" }} spacing={3}>
+        <Stack direction={{ xs: "column", lg: "row" }} spacing={3} data-print-row>
           <Card sx={{ flex: 1 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
