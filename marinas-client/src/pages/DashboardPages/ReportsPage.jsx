@@ -193,13 +193,14 @@ const ptBadgeInactive = {
 
 // ── @media print CSS ────────────────────────────────────────────
 const printStyles = `
+  @page { size: A4; margin: 18mm; }
+
   @media print {
-    @page { size: A4; margin: 18mm; }
     body { background: white !important; }
     .MuiAppBar-root,
     .MuiDrawer-root { display: none !important; }
     main > div:first-child { display: none !important; }
-    main { padding: 0 !important; }
+    main { padding-top: 0 !important; }
     [data-print-skip] { display: none !important; }
     [data-print-header] {
       display: flex !important;
