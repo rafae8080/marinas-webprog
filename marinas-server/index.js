@@ -10,9 +10,6 @@ const articleRoutes = require("./routes/articleRoutes");
 
 const app = express();
 
-// Database Connection
-connectDB();
-
 app.use(express.json());
 
 //Middleware
@@ -28,6 +25,11 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 app.use(cors(corsOptions));
+
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
 
 // Routes
 app.use("/api/users", userRoutes);
