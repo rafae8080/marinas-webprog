@@ -23,5 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-marinas-server\.env
-marinas-client\.env
+.env
