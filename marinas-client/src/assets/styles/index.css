@@ -1,11 +1,65 @@
 @import "tailwindcss";
 
+/* Field Map design tokens (PORTFOLIO_PLAN.md §B1.2). Day is the default, Night via data-theme on <html>. */
+:root, [data-theme="day"] {
+  --bg:#E8E6E0; --surface:#F6F5F1; --ink:#1B1E1A; --muted:#6B6A63; --line:#C8C2B3;
+  --accent:#8E1B1F; --accent-deep:#5E1014; --accent-wash:#8E1B1F14; --on-accent:#FFFFFF; --ok:#2F6B3A;
+}
+[data-theme="night"] {
+  --bg:#0D1210; --surface:#151C19; --ink:#DCE3DA; --muted:#7C8A82; --line:#22302A;
+  --accent:#E5484D; --accent-deep:#8E1B1F; --accent-wash:#E5484D1F; --on-accent:#0D1210; --ok:#5FBF73;
+}
+@theme inline {
+  --color-bg: var(--bg); --color-surface: var(--surface); --color-ink: var(--ink);
+  --color-muted: var(--muted); --color-line: var(--line); --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep); --color-accent-wash: var(--accent-wash);
+  --color-on-accent: var(--on-accent); --color-ok: var(--ok);
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
 @layer base {
+  html {
+    color-scheme: light;
+  }
+  html[data-theme="night"] {
+    color-scheme: dark;
+  }
+
   body {
-    @apply bg-zinc-100 text-zinc-900 antialiased;
+    @apply bg-bg text-ink font-sans antialiased;
   }
 
   #root {
     @apply min-h-screen;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  ::selection {
+    @apply bg-accent-wash text-ink;
+  }
+}
+
+/* Status dot "radar ping" (§B1.5) */
+@keyframes radar-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  80%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+@utility animate-radar-ping {
+  animation: radar-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Reduced motion: nothing moves (§B1.5) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

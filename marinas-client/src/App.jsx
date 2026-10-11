@@ -19,8 +19,15 @@ import UsersPage from "./pages/DashboardPages/UsersPage";
 import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage";
 
 import NotFoundPage from "./pages/NotFoundPage";
+import StyleguidePage from "./pages/StyleguidePage"; // TEMP: remove in Phase 13
 
 const routes = [
+  // TEMP: remove in Phase 13
+  {
+    path: "styleguide",
+    element: <StyleguidePage />,
+    errorElement: <NotFoundPage />,
+  },
   {
     path: "/",
     element: <Layout />,
