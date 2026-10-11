@@ -27,3 +27,9 @@ dist-ssr
 
 # Original screenshots (WebP copies live in marinas-client/public/images/projects)
 marinas-client/screenshot/
+
+# Local working notes (kept on this machine, not on GitHub)
+.claude/
+CLAUDE.md
+docs/
+PORTFOLIO_PLAN.md
