@@ -42,8 +42,9 @@ const OpsMapCanvas = ({ pins }) => {
   const [active, setActive] = useState(false);
   const bounds = L.latLngBounds(pins.map((p) => [p.lat, p.lng])).pad(0.6);
 
+  // isolate: Leaflet's panes use z-index 400-1000; this keeps them inside the map so they can't cover the sticky navbar
   return (
-    <div className="relative">
+    <div className="relative isolate">
       <MapContainer
         bounds={bounds}
         scrollWheelZoom={false}

@@ -5,7 +5,8 @@ import RadyoAvatar from "./RadyoAvatar";
 // The chat panel (Fuse + FAQ data) loads the first time RMO is opened
 const RadyoPanel = lazy(() => import("./RadyoPanel"));
 
-const SIZE = 64; // launcher size in px
+const SIZE = 64; // launcher (bubble) size in px
+const FACE = 46; // RMO inside the bubble
 
 // RMO launcher: a fixed face in the bottom-right corner whose eyes follow the cursor.
 // Click or Enter opens the chat. Rendered by Layout (public pages only, not the dashboard).
@@ -31,10 +32,9 @@ const RadyoWidget = () => {
     let last = null;
     const update = () => {
       frame = 0;
-      const btn = buttonRef.current;
       const pupils = pupilsRef.current;
-      if (!btn || !pupils || !last) return;
-      const r = btn.getBoundingClientRect();
+      if (!pupils || !last) return;
+      const r = pupils.ownerSVGElement.getBoundingClientRect();
       // Eye centre: middle of the face's screen (viewBox 64: x 32, y 28)
       const ex = r.left + (r.width * 32) / 64;
       const ey = r.top + (r.height * 28) / 64;
@@ -75,9 +75,9 @@ const RadyoWidget = () => {
             aria-label="Ask RMO, the FAQ bot"
             aria-haspopup="dialog"
             aria-expanded={open}
-            className="block h-full w-full drop-shadow-sm transition-transform motion-safe:hover:-translate-y-0.5"
+            className="flex h-full w-full items-center justify-center rounded-full border border-line bg-surface shadow-md transition-[transform,border-color] hover:border-ink motion-safe:hover:-translate-y-0.5"
           >
-            <RadyoAvatar state="idle" size={SIZE} pupilsRef={pupilsRef} />
+            <RadyoAvatar state="idle" size={FACE} pupilsRef={pupilsRef} />
           </button>
         </div>
       )}
