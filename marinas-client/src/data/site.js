@@ -61,9 +61,24 @@ export const education = {
 };
 
 export const certifications = [
-  { name: "ITS Cybersecurity", issuer: "Certiport", date: "May 2026", url: null }, // TODO(rafael): Credly URL
-  { name: "Project Management Ready", issuer: "PMI", date: "Oct 2026", url: null }, // TODO(rafael): Credly URL
-  { name: "Computer Hardware Basics", issuer: "Cisco", date: "Oct 2026", url: null }, // TODO(rafael): Credly URL
+  {
+    name: "ITS Cybersecurity",
+    issuer: "Certiport",
+    date: "May 2026",
+    url: "https://www.credly.com/badges/616bec7c-ed3c-4638-850e-fe0047bc64ef/public_url",
+  },
+  {
+    name: "Project Management Ready",
+    issuer: "PMI",
+    date: "Oct 2026",
+    url: "https://www.credly.com/badges/f659da75-7c87-4236-8ad6-e38f8cfc3ef9/public_url",
+  },
+  {
+    name: "Computer Hardware Basics",
+    issuer: "Cisco",
+    date: "Oct 2026",
+    url: "https://www.credly.com/badges/e292a918-a21f-4105-a6c1-2262a66497f0/public_url",
+  },
   { name: "Lean Six Sigma Yellow Belt", issuer: "MF OpEx/CSSC", date: "Oct 2025", url: null }, // TODO(rafael): Credly URL
 ];
 
@@ -93,7 +108,7 @@ export const timeline = [
     detail: "Started helping run the family's apartment rental: tenants, lease contracts and monthly statements of account for 17 units.",
   },
   {
-    period: "TODO(rafael): BSIT start year",
+    period: "2023",
     title: "BS Information Technology, National University Manila",
     detail: "Specialization in Mobile & Web Applications.",
   },
