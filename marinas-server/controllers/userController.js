@@ -24,7 +24,9 @@ const createUser = async (req, res) => {
     // Create the user with the hashed password
     const user = await User.create({ ...req.body, password: hashedPassword });
 
-    res.status(201).json(user);
+    // Never send the password hash back
+    const { password, ...safeUser } = user.toObject();
+    res.status(201).json(safeUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -41,7 +43,8 @@ const updateUser = async (req, res) => {
     // Update the user with the new data
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-    });
+      runValidators: true,
+    }).select("-password");
 
     res.json(user);
   } catch (error) {

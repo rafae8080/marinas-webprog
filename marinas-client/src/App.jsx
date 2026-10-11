@@ -12,6 +12,7 @@ import SignInPage from "./pages/AuthPages/SignInpage";
 import SignUpPage from "./pages/AuthPages/SignUpPage";
 
 import DashLayout from "./layouts/DashLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardPage from "./pages/DashboardPages/DashboardPage";
 import ReportsPage from "./pages/DashboardPages/ReportsPage";
 import UsersPage from "./pages/DashboardPages/UsersPage";
@@ -60,7 +61,11 @@ const routes = [
   },
   {
     path: "dashboard/",
-    element: <DashLayout />,
+    element: (
+      <ProtectedRoute>
+        <DashLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFoundPage />,
     children: [
       {

@@ -75,7 +75,7 @@ const columns = [
   },
 ];
 
-// ── Sample rows (mirroring users.json) ─────────────────────────
+// ── Sample rows (demo data, no passwords) ──────────────────────
 const rows = [
   {
     id: 1,

@@ -1,30 +1,44 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
-const bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
+const helmet = require("helmet");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const articleRoutes = require("./routes/articleRoutes");
 
 const app = express();
 
-app.use(express.json());
-
 //Middleware
-app.use(jsonParser);
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// vercel options
+// CORS: allow origins from CLIENT_ORIGIN (comma-separated) plus local dev
+const allowedOrigins = [
+  ...(process.env.CLIENT_ORIGIN || "")
+    .split(",")
+    .map((o) => o.trim())
+    .filter(Boolean),
+  "http://localhost:5173",
+];
+
 const corsOptions = {
-  origin: "*",
+  origin: (origin, callback) => {
+    // Requests with no Origin header (curl, server-to-server) are allowed
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(null, false);
+  },
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
 app.use(cors(corsOptions));
+
+// Health check (no DB needed)
+app.get("/api/health", (req, res) => {
+  res.json({ ok: true });
+});
 
 app.use(async (req, res, next) => {
   await connectDB();
