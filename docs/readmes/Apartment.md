@@ -31,3 +31,4 @@ Requirements: PHP with the Microsoft `sqlsrv` extension, and SQL Server (Express
 ## My role
 
 TODO(rafael): solo or team? Who is the GitHub user `maverivk`? What did you build?
+i do frontend and logic, maverick build the backend

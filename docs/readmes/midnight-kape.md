@@ -25,11 +25,11 @@ TODO(rafael): add screenshots of the sales screen, checkout/receipt, transaction
 
 ## Tech stack
 
-| Part | Tech |
-|---|---|
-| Web | React 19, Vite, React Router, lucide-react |
-| API | Node.js, Express 5, Mongoose 9 (MongoDB Atlas), zod, JWT, helmet, express-rate-limit |
-| Hosting | Vercel (`api/index.js`, `vercel.json`) |
+| Part    | Tech                                                                                 |
+| ------- | ------------------------------------------------------------------------------------ |
+| Web     | React 19, Vite, React Router, lucide-react                                           |
+| API     | Node.js, Express 5, Mongoose 9 (MongoDB Atlas), zod, JWT, helmet, express-rate-limit |
+| Hosting | Vercel (`api/index.js`, `vercel.json`)                                               |
 
 ## Run locally
 
@@ -45,3 +45,4 @@ Deployment steps: [`DEPLOY.md`](DEPLOY.md).
 ## My role
 
 Solo project by Rafael Marinas: design, front end, API and deployment.
+this is freelance

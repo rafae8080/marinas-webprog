@@ -1,16 +1,11 @@
-// Generates public/topo.svg: faint topographic contour lines for the Field Map background (§B1.4).
-// Run once with `npm run gen:topo` and commit the output. Same seed = same file.
+// Generates the Field Map contour art (§B1.4). Run once with `npm run gen:topo` and commit the output.
+// Same seed = same files.
+//   public/topo.svg               faint background contours for the whole site (≤ 60 KB)
+//   src/assets/heroContours.js    a few contour lines the Home hero draws in (inline SVG, ≤ 12 KB)
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { contours } from "d3-contour";
 import { createNoise2D } from "simplex-noise";
-
-const WIDTH = 1600;
-const HEIGHT = 1000;
-const GRID = 10; // px per grid cell
-const LEVELS = 14;
-const SEED = 1465121; // 14.65°N 121.10°E
-const MAX_BYTES = 60 * 1024;
 
 // Small seeded PRNG (mulberry32) so the output is stable between runs
 const mulberry32 = (seed) => () => {
@@ -21,86 +16,101 @@ const mulberry32 = (seed) => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
-const noise2D = createNoise2D(mulberry32(SEED));
-const cols = WIDTH / GRID + 1;
-const rows = HEIGHT / GRID + 1;
+// Returns one SVG path string per contour line
+const contourPaths = ({ width, height, grid, levels, seed, minPoints = 4 }) => {
+  const noise2D = createNoise2D(mulberry32(seed));
+  const cols = width / grid + 1;
+  const rows = height / grid + 1;
 
-// Two octaves of noise = rolling terrain with a few smaller hills
-const values = new Float64Array(cols * rows);
-for (let y = 0; y < rows; y++) {
-  for (let x = 0; x < cols; x++) {
-    const nx = x / cols;
-    const ny = y / rows;
-    values[y * cols + x] =
-      noise2D(nx * 2.2, ny * 1.4) + 0.35 * noise2D(nx * 5.5 + 10, ny * 3.5 + 10);
-  }
-}
-
-let min = Infinity;
-let max = -Infinity;
-for (const v of values) {
-  if (v < min) min = v;
-  if (v > max) max = v;
-}
-const step = (max - min) / (LEVELS + 1);
-const thresholds = Array.from({ length: LEVELS }, (_, i) => min + step * (i + 1));
-
-const fmt = (n) => Math.round(n);
-const onEdge = ([x, y]) => x <= 0.5 || y <= 0.5 || x >= cols - 1.5 || y >= rows - 1.5;
-
-// d3-contour closes every ring along the grid border. Split rings at the border so we only draw real contour lines.
-const ringToPaths = (ring) => {
-  const paths = [];
-  let current = [];
-  for (const point of ring) {
-    if (onEdge(point)) {
-      if (current.length > 1) paths.push(current);
-      current = [];
-    } else {
-      current.push(point);
+  // Two octaves of noise = rolling terrain with a few smaller hills
+  const values = new Float64Array(cols * rows);
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const nx = x / cols;
+      const ny = y / rows;
+      values[y * cols + x] =
+        noise2D(nx * 2.2, ny * 1.4) + 0.35 * noise2D(nx * 5.5 + 10, ny * 3.5 + 10);
     }
   }
-  if (current.length > 1) paths.push(current);
-  if (paths.length > 1 && !onEdge(ring[0]) && !onEdge(ring[ring.length - 1])) {
-    // The ring wrapped around: join the last open piece to the first
-    paths[0] = paths.pop().concat(paths[0]);
+
+  let min = Infinity;
+  let max = -Infinity;
+  for (const v of values) {
+    if (v < min) min = v;
+    if (v > max) max = v;
   }
-  return paths;
+  const step = (max - min) / (levels + 1);
+  const thresholds = Array.from({ length: levels }, (_, i) => min + step * (i + 1));
+
+  const onEdge = ([x, y]) => x <= 0.5 || y <= 0.5 || x >= cols - 1.5 || y >= rows - 1.5;
+
+  // d3-contour closes every ring along the grid border. Split rings at the border so we only draw real contour lines.
+  const ringToPaths = (ring) => {
+    const paths = [];
+    let current = [];
+    for (const point of ring) {
+      if (onEdge(point)) {
+        if (current.length > 1) paths.push(current);
+        current = [];
+      } else {
+        current.push(point);
+      }
+    }
+    if (current.length > 1) paths.push(current);
+    if (paths.length > 1 && !onEdge(ring[0]) && !onEdge(ring[ring.length - 1])) {
+      // The ring wrapped around: join the last open piece to the first
+      paths[0] = paths.pop().concat(paths[0]);
+    }
+    return paths;
+  };
+
+  const toD = (points) => {
+    let d = "";
+    let prev = null;
+    for (const [x, y] of points) {
+      const px = Math.round((x - 0.5) * grid);
+      const py = Math.round((y - 0.5) * grid);
+      if (prev && prev[0] === px && prev[1] === py) continue;
+      d += prev ? `L${px} ${py}` : `M${px} ${py}`;
+      prev = [px, py];
+    }
+    return d;
+  };
+
+  return contours()
+    .size([cols, rows])
+    .thresholds(thresholds)(values)
+    .flatMap((geometry) => geometry.coordinates.flat())
+    .flatMap(ringToPaths)
+    .filter((points) => points.length >= minPoints)
+    .map(toD);
 };
 
-const toD = (points) => {
-  let d = "";
-  let prev = null;
-  for (const [x, y] of points) {
-    const px = fmt((x - 0.5) * GRID);
-    const py = fmt((y - 0.5) * GRID);
-    if (prev && prev[0] === px && prev[1] === py) continue;
-    d += prev ? `L${px} ${py}` : `M${px} ${py}`;
-    prev = [px, py];
+const check = (name, bytes, max) => {
+  if (bytes > max) {
+    console.error(`${name} is ${(bytes / 1024).toFixed(1)} KB, over the ${max / 1024} KB budget. Raise the grid size or lower the levels.`);
+    process.exit(1);
   }
-  return d;
 };
 
-const pathData = contours()
-  .size([cols, rows])
-  .thresholds(thresholds)(values)
-  .flatMap((geometry) => geometry.coordinates.flat())
-  .flatMap(ringToPaths)
-  .filter((points) => points.length > 3)
-  .map(toD)
-  .join("");
-
+// ---- public/topo.svg (background) ----
+const TOPO = { width: 1600, height: 1000, grid: 10, levels: 14, seed: 1465121 }; // seed: 14.65°N 121.10°E
+const topoD = contourPaths(TOPO).join("");
 const svg =
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${HEIGHT}" preserveAspectRatio="xMidYMid slice">` +
-  `<path d="${pathData}" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>` +
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${TOPO.width} ${TOPO.height}" preserveAspectRatio="xMidYMid slice">` +
+  `<path d="${topoD}" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>` +
   `</svg>\n`;
+check("topo.svg", Buffer.byteLength(svg), 60 * 1024);
+writeFileSync(fileURLToPath(new URL("../public/topo.svg", import.meta.url)), svg);
+console.log(`Wrote public/topo.svg (${TOPO.levels} levels, ${(Buffer.byteLength(svg) / 1024).toFixed(1)} KB)`);
 
-const bytes = Buffer.byteLength(svg);
-if (bytes > MAX_BYTES) {
-  console.error(`topo.svg is ${(bytes / 1024).toFixed(1)} KB, over the ${MAX_BYTES / 1024} KB budget. Raise GRID or lower LEVELS.`);
-  process.exit(1);
-}
-
-const out = fileURLToPath(new URL("../public/topo.svg", import.meta.url));
-writeFileSync(out, svg);
-console.log(`Wrote public/topo.svg (${LEVELS} levels, ${(bytes / 1024).toFixed(1)} KB)`);
+// ---- src/assets/heroContours.js (hero draw-in) ----
+const HERO = { width: 600, height: 600, grid: 15, levels: 9, seed: 1210, minPoints: 8 };
+const heroPaths = contourPaths(HERO);
+const js =
+  `// Generated by scripts/gen-topo.mjs — do not edit by hand.\n` +
+  `export const heroViewBox = "0 0 ${HERO.width} ${HERO.height}";\n` +
+  `export const heroPaths = ${JSON.stringify(heroPaths, null, 0).replace(/","/g, '",\n  "').replace("[", "[\n  ").replace(/]$/, ",\n]")};\n`;
+check("heroContours.js", Buffer.byteLength(js), 12 * 1024);
+writeFileSync(fileURLToPath(new URL("../src/assets/heroContours.js", import.meta.url)), js);
+console.log(`Wrote src/assets/heroContours.js (${heroPaths.length} lines, ${(Buffer.byteLength(js) / 1024).toFixed(1)} KB)`);

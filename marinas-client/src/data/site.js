@@ -25,6 +25,7 @@ export const metrics = [
     value: 122,
     label: "residents evaluated E-Telly",
     detail: "plus 6 CDRRMO personnel and 5 IT professionals",
+    source: "E-Telly eval",
   },
   {
     id: "etelly-usability",
@@ -32,10 +33,22 @@ export const metrics = [
     decimals: 2,
     suffix: "/5",
     label: "E-Telly usability mean (High)",
+    source: "E-Telly eval",
   },
-  { id: "client-projects", value: 10, suffix: "+", label: "client projects as a freelancer (2024–present)" },
-  { id: "rental-units", value: 17, label: "rental units managed since 2017 (14 residential, 3 commercial)" },
-  { id: "deans-list", value: 8, suffix: "×", label: "Dean's Lister (trimester)" },
+  {
+    id: "client-projects",
+    value: 10,
+    suffix: "+",
+    label: "client projects as a freelancer (2024–present)",
+    source: "Freelance",
+  },
+  {
+    id: "rental-units",
+    value: 17,
+    label: "rental units managed since 2017 (14 residential, 3 commercial)",
+    source: "Property mgmt",
+  },
+  { id: "deans-list", value: 8, suffix: "×", label: "Dean's Lister (trimester)", source: "NU Manila" },
 ];
 
 export const education = {
@@ -72,15 +85,42 @@ export const skills = [
   { group: "Spoken", items: ["English", "Filipino"] },
 ];
 
-// Newest first
+// Field Log, oldest first (Phase 5 step 7). All facts from §B2.
 export const timeline = [
   {
-    period: "2025–present",
-    title: "E-Telly (capstone, team of 5)",
-    org: "National University Manila",
-    detail:
-      "Built the entire web app and backend (MERN), designed the database, the live disaster reporting module, the multi-hazard map and hazard-aware route navigation in the Flutter app.",
+    period: "2017",
+    title: "Property Management Assistant",
+    detail: "Started helping run the family's apartment rental: tenants, lease contracts and monthly statements of account for 17 units.",
   },
+  {
+    period: "TODO(rafael): BSIT start year",
+    title: "BS Information Technology, National University Manila",
+    detail: "Specialization in Mobile & Web Applications.",
+  },
+  {
+    period: "2024",
+    title: "Freelance Web & Software Developer",
+    detail: "10+ client projects since, from Android Studio storybook apps to full management systems.",
+  },
+  {
+    period: "2025",
+    title: "E-Telly capstone + Lean Six Sigma Yellow Belt",
+    detail: "Started E-Telly with a team of 5, building the web app, backend and database. Lean Six Sigma Yellow Belt (MF OpEx/CSSC, Oct 2025).",
+  },
+  {
+    period: "2026",
+    title: "Certifications, Flutter apps and StayNest",
+    detail: "ITS Cybersecurity (May), PMI Project Management Ready and Cisco Computer Hardware Basics (Oct). Flutter e-commerce and Facebook-style apps, and StayNest in VB.NET.",
+  },
+  {
+    period: "June 2027",
+    title: "Expected graduation",
+    detail: "BSIT, 8× Dean's Lister, GWA 3.68/4.00.",
+  },
+];
+
+// Experience (§B2), newest first
+export const experience = [
   {
     period: "2024–present",
     title: "Freelance Web & Software Developer",
@@ -88,15 +128,68 @@ export const timeline = [
     detail: "10+ client projects, from Android Studio storybook apps to full management systems.",
   },
   {
-    period: "Expected June 2027",
-    title: "BS Information Technology (Mobile & Web Applications)",
-    org: "National University Manila",
-    detail: "Dean's Lister for 8 terms · GWA 3.68/4.00",
-  },
-  {
     period: "2017–present",
     title: "Property Management Assistant",
     org: "Family-owned apartment rental",
-    detail: "Tenants, lease contracts and monthly statements of account for 17 units.",
+    detail: "Tenants, lease contracts and monthly statements of account for 17 units (14 residential, 3 commercial).",
+  },
+];
+
+// Off the Clock (§B2). `photo`: a file in public/images/hobbies/ (e.g. "/images/hobbies/gym-1.webp"), or null for PHOTO PENDING.
+// `stats` show as mono labels; TODO(rafael) values stay visible until filled in.
+export const hobbies = [
+  {
+    id: "gym",
+    title: "Gym",
+    caption: "Gym and fitness.",
+    photo: null, // TODO(rafael): public/images/hobbies/gym-1.jpg
+    stats: [],
+    projectSlug: "fitqueue", // the workout queue app on /work
+  },
+  {
+    id: "basketball",
+    title: "Basketball",
+    caption: "Basketball.",
+    photo: null, // TODO(rafael): public/images/hobbies/basketball-1.jpg
+    stats: [],
+  },
+  {
+    id: "taekwondo",
+    title: "Taekwondo",
+    caption: "Taekwondo.",
+    photo: null, // TODO(rafael): public/images/hobbies/taekwondo-1.jpg
+    stats: [
+      { label: "Rank", value: "TODO(rafael): rank (optional)" },
+      { label: "Years", value: "TODO(rafael): years (optional)" },
+    ],
+  },
+  {
+    id: "gaming",
+    title: "Gaming",
+    caption: "Used to play these, and more.", // names as text only, no game logos or art (§B2)
+    photo: null, // TODO(rafael): public/images/hobbies/gaming-1.jpg (your setup, no game art)
+    stats: [{ label: "Mains", value: "TODO(rafael): mains (optional)" }],
+    games: ["Mobile Legends", "League of Legends", "Call of Duty", "NBA 2K", "Tekken"],
+  },
+];
+
+// Ops map pins. City-level coordinates ONLY (never a home, property or campus street address).
+// The E-Telly pilot area (Antipolo City) is left out until Rafael confirms he's allowed to show it.
+export const mapPins = [
+  {
+    code: "BASE",
+    label: "Marikina City",
+    lat: 14.65,
+    lng: 121.1,
+    text: "Base of operations: Marikina City, PH.",
+    link: { to: "/about", label: "About me" },
+  },
+  {
+    code: "TRAINING GROUND",
+    label: "National University Manila",
+    lat: 14.6,
+    lng: 120.98,
+    text: "BSIT, Mobile & Web Applications. 8× Dean's Lister, expected June 2027.",
+    link: { to: "/about#education", label: "Education" },
   },
 ];

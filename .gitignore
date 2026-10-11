@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# Original screenshots (WebP copies live in marinas-client/public/images/projects)
+marinas-client/screenshot/

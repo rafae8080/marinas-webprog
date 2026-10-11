@@ -31,4 +31,4 @@ Main class: `HomePageFrame`.
 
 ## My role
 
-TODO(rafael): solo or team, and the course (Data Structures?).
+TODO(rafael): solo or team, and the course (Data Structures?).solo, and yes data structure

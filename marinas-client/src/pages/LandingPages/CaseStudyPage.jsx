@@ -5,19 +5,15 @@ import Button from "../../components/ui/Button";
 import CornerMarks from "../../components/ui/CornerMarks";
 import Counter from "../../components/ui/Counter";
 import Tag from "../../components/ui/Tag";
-import projects, { isTodo } from "../../data/projects";
+import TodoText from "../../components/ui/TodoText";
+import projects from "../../data/projects";
 import NotFoundPage from "../NotFoundPage";
 
 const statusTone = { DEPLOYED: "ok", "IN PROGRESS": "accent", ARCHIVED: "neutral" };
 const label = "font-mono text-[11px] uppercase tracking-[0.12em] text-muted";
 
 // TODO(rafael) values stay visible as placeholders (Part A3)
-const Text = ({ value }) =>
-  isTodo(value) ? (
-    <span className="border border-dashed border-line px-1.5 font-mono text-xs text-muted">{value}</span>
-  ) : (
-    value
-  );
+const Text = TodoText;
 
 const Section = ({ code, title, children }) => (
   <section className="border-t border-line py-10 md:grid md:grid-cols-[12rem_1fr] md:gap-8">
@@ -127,30 +123,42 @@ export default function CaseStudyPage() {
 
       {project.screenshots.length > 0 && (
         <Section code={code()} title="Screenshots">
-          <ul className="grid gap-4 sm:grid-cols-2">
-            {project.screenshots.map((shot, i) => (
-              <li key={shot.src}>
-                <button
-                  type="button"
-                  onClick={() => setLightboxIndex(i)}
-                  className="group block w-full text-left"
-                  aria-label={`Open screenshot: ${shot.caption || shot.alt}`}
-                >
-                  <img
-                    src={shot.src}
-                    alt={shot.alt}
-                    loading="lazy"
-                    className="aspect-[16/9] w-full border border-line bg-surface object-cover object-top transition-colors group-hover:border-ink"
-                  />
-                  {shot.caption && (
-                    <span className={`${label} mt-2 block group-hover:text-ink`}>
-                      {String(i + 1).padStart(2, "0")} · {shot.caption}
-                    </span>
-                  )}
-                </button>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop shots in a 2-column grid, phone shots in a narrower grid; the lightbox keeps one order */}
+          {[
+            { portrait: false, grid: "grid gap-4 sm:grid-cols-2", img: "aspect-[16/9] object-cover object-top" },
+            { portrait: true, grid: "grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4", img: "h-auto" },
+          ].map((group) => {
+            const shots = project.screenshots
+              .map((shot, i) => ({ shot, i }))
+              .filter(({ shot }) => Boolean(shot.portrait) === group.portrait);
+            if (shots.length === 0) return null;
+            return (
+              <ul key={String(group.portrait)} className={`${group.grid} [&+ul]:mt-8`}>
+                {shots.map(({ shot, i }) => (
+                  <li key={shot.src}>
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(i)}
+                      className="group block w-full text-left"
+                      aria-label={`Open screenshot: ${shot.caption || shot.alt}`}
+                    >
+                      <img
+                        src={shot.src}
+                        alt={shot.alt}
+                        loading="lazy"
+                        className={`w-full border border-line bg-surface transition-colors group-hover:border-ink ${group.img}`}
+                      />
+                      {shot.caption && (
+                        <span className={`${label} mt-2 block group-hover:text-ink`}>
+                          {String(i + 1).padStart(2, "0")} · {shot.caption}
+                        </span>
+                      )}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            );
+          })}
         </Section>
       )}
 

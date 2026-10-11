@@ -44,7 +44,7 @@ which should come from config rather than `AndroidManifest.xml`).
 
 ## My role
 
-I (Rafael Marinas) built the hazard-aware route navigation, the P2P relay, and the Firebase Auth sign-in / sign-up, and
+I (Rafael Marinas) the P2P relay, and the Firebase Auth sign-in / sign-up, and
 connected the app to the backend.
 
 ## Team

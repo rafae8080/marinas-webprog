@@ -24,11 +24,11 @@ TODO(rafael): add screenshots (dashboard, live report feed, multi-hazard map, al
 
 ## Tech stack
 
-| Part | Tech |
-|---|---|
-| Client | React 19, Vite, React Router, Leaflet / react-leaflet, Recharts, Tailwind CSS, socket.io-client |
-| Server | Node.js, Express 5, Mongoose 9 (MongoDB), Socket.IO, JWT, bcryptjs, node-cron, express-rate-limit |
-| Services | Cloudinary (report images), Firebase Admin (FCM), web-push |
+| Part     | Tech                                                                                              |
+| -------- | ------------------------------------------------------------------------------------------------- |
+| Client   | React 19, Vite, React Router, Leaflet / react-leaflet, Recharts, Tailwind CSS, socket.io-client   |
+| Server   | Node.js, Express 5, Mongoose 9 (MongoDB), Socket.IO, JWT, bcryptjs, node-cron, express-rate-limit |
+| Services | Cloudinary (report images), Firebase Admin (FCM), web-push                                        |
 
 ## Run locally
 
@@ -63,6 +63,7 @@ TODO(rafael): working URL (etelly-mern.vercel.app currently returns 404).
 
 I (Rafael Marinas) built the web app and backend: the database design, the live disaster reporting module, the
 multi-hazard map with resident reports, the alert services and the API used by the mobile app.
+i also do the frontend of web
 
 ## Team
 

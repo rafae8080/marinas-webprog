@@ -6,6 +6,9 @@
 // - `type` is a list because E-Telly is both a web and a mobile project.
 // - `year` is display text. Array order decides the sort.
 // - `client` / `confidential`: Rafael confirmed permission to show Apartment and Midnight Kape (Phase 4).
+// - Screenshots come from Rafael (marinas-client/screenshot/, converted with `npm run images`). Shots showing
+//   real people's names, emails, phone numbers, tenant data or property/home addresses were left out on purpose.
+// - `portrait: true` marks phone-shaped screenshots so the gallery doesn't crop them.
 
 export const TODO = "TODO(rafael)";
 export const isTodo = (value) => typeof value === "string" && value.startsWith(TODO);
@@ -15,12 +18,12 @@ const projects = [
     slug: "e-telly",
     title: "E-Telly",
     tier: "featured",
-    status: "IN PROGRESS",
+    status: "DEPLOYED", // live at e-tellyph.com (checked 2026-10-12)
     year: "2025–present",
     type: ["web", "mobile"],
     client: false,
     confidential: false,
-    role: "Web app, backend and database; hazard-aware navigation, P2P relay and sign-in in the Flutter app",
+    role: "Web app (front end + backend) and database; hazard-aware navigation, P2P relay and sign-in in the Flutter app",
     team: "Team of 5",
     stack: ["React", "Express", "MongoDB", "Socket.IO", "Leaflet", "Flutter", "Mapbox", "Firebase Auth"],
     summary:
@@ -47,9 +50,27 @@ const projects = [
     ],
     cardMetric: "122 residents · usability 4.05/5",
     architecture: null, // TODO(rafael): architecture diagram (public/images/projects/e-telly/architecture.svg)
-    screenshots: [], // TODO(rafael): dashboard, live report, hazard map, Flutter navigation screenshots
+    screenshots: [
+      { src: "/images/projects/e-telly/web-01.webp", alt: "E-Telly web login page for Antipolo City CDRRMO", caption: "Log in (CDRRMO)" },
+      { src: "/images/projects/e-telly/web-02.webp", alt: "Dashboard overview with active alerts, pending reports, recent alerts and pending reports lists", caption: "Dashboard overview" },
+      { src: "/images/projects/e-telly/web-03.webp", alt: "Alerts page with counts by type and a list of rescue alerts", caption: "Alerts" },
+      { src: "/images/projects/e-telly/web-04.webp", alt: "Report monitoring with total, high-priority and rescue-needed counts and a list of ongoing reports", caption: "Report monitoring" },
+      { src: "/images/projects/e-telly/web-05.webp", alt: "Hazard map of Antipolo City with flood hazard shading, report markers and a layer panel", caption: "Multi-hazard map" },
+      { src: "/images/projects/e-telly/web-06.webp", alt: "Full-screen hazard map with flood, earthquake and live report layers and a 12-hour rainfall strip", caption: "Hazard map, full screen with rainfall forecast" },
+      { src: "/images/projects/e-telly/web-07.webp", alt: "Evacuation centers page with capacity, occupancy and per-center evacuee counts", caption: "Evacuation centers" },
+      { src: "/images/projects/e-telly/web-08.webp", alt: "Safety tips list with first aid, earthquake, fire, flood and landslide guides", caption: "Safety tips" },
+      { src: "/images/projects/e-telly/web-09.webp", alt: "Basic first aid guide with before, during and after steps", caption: "Safety tip detail: basic first aid" },
+      { src: "/images/projects/e-telly/web-13.webp", alt: "System admin audit logs of sign-ins and report actions", caption: "Admin: audit logs" },
+      { src: "/images/projects/e-telly/web-14.webp", alt: "AI model performance page with flood model version history, precision, recall and AUC", caption: "Admin: risk model performance" },
+      { src: "/images/projects/e-telly/mobile-01.webp", alt: "E-Telly mobile welcome screen listing real-time alerts, emergency resources and safety tips", caption: "Mobile: welcome", portrait: true },
+      { src: "/images/projects/e-telly/mobile-02.webp", alt: "Mobile login with email and password or Continue with Google", caption: "Mobile: log in (Firebase Auth + Google)", portrait: true },
+      { src: "/images/projects/e-telly/mobile-03.webp", alt: "Mobile sign-up form with barangay, street details and password rules", caption: "Mobile: sign up", portrait: true },
+      { src: "/images/projects/e-telly/mobile-04.webp", alt: "Mobile home with alerts, report and safety tips shortcuts, offline report relay and Antipolo emergency hotlines", caption: "Mobile: home and emergency contacts", portrait: true },
+      { src: "/images/projects/e-telly/mobile-06.webp", alt: "Offline report relay screen with auto-relay active and a search for nearby devices", caption: "Mobile: offline P2P report relay", portrait: true },
+      { src: "/images/projects/e-telly/mobile-07.webp", alt: "Evacuation navigation map with evacuation center pins and a warning about active hazard zones", caption: "Mobile: hazard-aware evacuation navigation", portrait: true },
+    ],
     repo: null, // TODO(rafael): link E-Telly-mobile only after rotating the exposed MongoDB password (see audit)
-    demo: null, // TODO(rafael): etelly-mern.vercel.app returned 404 in the audit
+    demo: "https://e-tellyph.com",
     apk: null,
     nextSteps: `${TODO}: what you'd improve next`,
   },
@@ -110,13 +131,14 @@ const projects = [
     client: true,
     clientName: `${TODO}: client name (only if they agree to be named)`,
     confidential: false,
-    role: `${TODO}: your role (solo or team? who is GitHub user maverivk?)`,
-    team: `${TODO}: solo or team`,
+    role: "Front end and application logic (teammate maverivk built the backend)",
+    team: "Team of 2",
     stack: ["PHP", "SQL Server", "JavaScript", "CSS"],
     summary: "Web app for a landlord to manage apartments, units, leases and tenant payments in one place.",
     problem:
       "A rental property client needed one place to manage apartments, their units, leases and tenant payments. TODO(rafael): one or two lines on how it was done before.",
     built: [
+      "Front end for every page: log-in and registration, apartments, units, leases and transactions",
       "Landlord log-in and registration with hashed passwords and sessions",
       "Dashboard of available apartments, with adding an apartment and its photo",
       "Units per apartment with unit details",
@@ -125,7 +147,14 @@ const projects = [
     ],
     metrics: [],
     architecture: null,
-    screenshots: [], // TODO(rafael): screenshots with sample data only (no real tenant names)
+    // Shots with property addresses, tenant names/phones or payments were left out (§B2: never publish them)
+    screenshots: [
+      { src: "/images/projects/apartment/shot-01.webp", alt: "Landlord login page", caption: "Landlord log in" },
+      { src: "/images/projects/apartment/shot-02.webp", alt: "Landlord registration form", caption: "Register" },
+      { src: "/images/projects/apartment/shot-05.webp", alt: "Units grid for one apartment, each with photo, rate, status and edit, delete and create-lease buttons", caption: "Units per apartment" },
+      { src: "/images/projects/apartment/shot-06.webp", alt: "Edit unit dialog with name, details, rate and image", caption: "Edit a unit" },
+      { src: "/images/projects/apartment/shot-07.webp", alt: "Create lease form with apartment, unit, tenant name, contact number and move-in and move-out dates", caption: "Create a lease" },
+    ],
     repo: "https://github.com/rafae8080/Apartment",
     demo: null,
     apk: null,
@@ -138,23 +167,39 @@ const projects = [
     status: "DEPLOYED",
     year: "2026",
     type: ["web"],
-    client: true, // TODO(rafael): confirm it's a client project
+    client: true, // freelance project (confirmed by Rafael)
     confidential: false,
-    role: "Solo: design, front end, API and deployment",
+    role: "Freelance, solo: design, front end, API and deployment",
     team: "Solo",
     stack: ["React", "Express", "MongoDB", "zod", "Vercel"],
-    summary: "Point-of-sale and management web app for a café: sales, transactions, staff accounts and an audit log.",
+    summary: "Freelance point-of-sale and management web app for a café: sales, inventory, reports, staff accounts and an audit log.",
     problem:
       "A café needed a POS for cashiers plus admin tools for staff accounts and an audit trail, without trusting prices sent from the browser.",
     built: [
       "Sales screen with drink options, cart, checkout and receipt",
-      "Paged transaction history",
+      "Paged transaction history with cash and e-wallet totals",
+      "Inventory: products, categories, suppliers, stock levels with reorder alerts, and stock history",
+      "Sales reports by date range, with daily, product and inventory views and printing",
       "Admin user management (create, reset password, deactivate) and an audit log; no public sign-up",
       "httpOnly SameSite=Strict cookie sessions, lockout after 5 wrong passwords, forced password change, server-side price recalculation, zod validation",
     ],
     metrics: [],
     architecture: null,
-    screenshots: [],
+    screenshots: [
+      { src: "/images/projects/midnight-kape/shot-01.webp", alt: "Staff-only sign-in page with The Midnight Kape logo", caption: "Staff sign in" },
+      { src: "/images/projects/midnight-kape/shot-02.webp", alt: "Admin dashboard with today's sales, orders, this month's total, a 7-day chart and top drinks", caption: "Dashboard" },
+      { src: "/images/projects/midnight-kape/shot-03.webp", alt: "Sales menu with drink categories and an empty current order", caption: "Sales: menu" },
+      { src: "/images/projects/midnight-kape/shot-04.webp", alt: "Drink options dialog with quantity, size and add-ons", caption: "Sales: drink options" },
+      { src: "/images/projects/midnight-kape/shot-05.webp", alt: "Checkout dialog with cash or e-wallet, quick cash amounts and a keypad", caption: "Sales: checkout" },
+      { src: "/images/projects/midnight-kape/shot-06.webp", alt: "Transaction history with totals by payment method and order details", caption: "Transaction history" },
+      { src: "/images/projects/midnight-kape/shot-07.webp", alt: "Products list with category, price and status", caption: "Inventory: products" },
+      { src: "/images/projects/midnight-kape/shot-09.webp", alt: "Suppliers list with contact details and status", caption: "Inventory: suppliers" },
+      { src: "/images/projects/midnight-kape/shot-10.webp", alt: "Stock levels with reorder warnings and stock value", caption: "Inventory: stock" },
+      { src: "/images/projects/midnight-kape/shot-11.webp", alt: "Stock history of corrections, waste and usage", caption: "Inventory: stock history" },
+      { src: "/images/projects/midnight-kape/shot-12.webp", alt: "Daily sales report with orders, cups sold and payment totals", caption: "Reports: daily sales" },
+      { src: "/images/projects/midnight-kape/shot-14.webp", alt: "Audit log of sign-ins, failed attempts and password changes", caption: "Admin: audit logs" },
+      { src: "/images/projects/midnight-kape/shot-18.webp", alt: "Change password page with password rules", caption: "Change password" },
+    ],
     repo: null, // private repo
     demo: "https://midnight-cafe-two.vercel.app",
     apk: null,
@@ -182,7 +227,15 @@ const projects = [
     ],
     metrics: [],
     architecture: null,
-    screenshots: [],
+    screenshots: [
+      { src: "/images/projects/e-commerce-app/shot-01.webp", alt: "Sign-in screen with DummyJSON and Firebase account options", caption: "Sign in (DummyJSON or Firebase)", portrait: true },
+      { src: "/images/projects/e-commerce-app/shot-02.webp", alt: "Splash screen with the NU logo", caption: "Splash", portrait: true },
+      { src: "/images/projects/e-commerce-app/shot-03.webp", alt: "Product catalog with search", caption: "Catalog", portrait: true },
+      { src: "/images/projects/e-commerce-app/shot-04.webp", alt: "Cart with quantities, discounts, delivery fee and total", caption: "Cart with discounts", portrait: true },
+      { src: "/images/projects/e-commerce-app/shot-05.webp", alt: "Profile screen for a DummyJSON demo user", caption: "Profile", portrait: true },
+      { src: "/images/projects/e-commerce-app/shot-06.webp", alt: "Settings with dark mode and log out", caption: "Settings: dark mode", portrait: true },
+      { src: "/images/projects/e-commerce-app/shot-07.webp", alt: "One-to-one chat between two test users", caption: "Chat (Cloud Firestore)", portrait: true },
+    ],
     repo: "https://github.com/rafae8080/marinas_advmobprogAY2627",
     demo: null,
     apk: null,
@@ -226,7 +279,7 @@ const projects = [
     role: "Solo coursework (Mobile Programming)",
     team: "Solo",
     stack: ["Flutter"],
-    summary: "Flutter UI recreation of Facebook: feed, post details with likes, notifications and profile.",
+    summary: "Flutter UI recreation of Facebook, branded Owlbook: feed, post details with likes, notifications and profile.",
     problem: "Coursework: recreate a familiar app's screens and interactions in Flutter. Uses sample data, no backend.",
     built: [
       "Splash, log-in and register screens with form validation",
@@ -235,7 +288,14 @@ const projects = [
     ],
     metrics: [],
     architecture: null,
-    screenshots: [],
+    screenshots: [
+      { src: "/images/projects/facebook-replication/shot-01.webp", alt: "Owlbook login screen", caption: "Log in", portrait: true },
+      { src: "/images/projects/facebook-replication/shot-02.webp", alt: "News feed with posts, like counts and comment box", caption: "News feed", portrait: true },
+      { src: "/images/projects/facebook-replication/shot-03.webp", alt: "Feed with a promotion carousel", caption: "Promotions carousel", portrait: true },
+      { src: "/images/projects/facebook-replication/shot-04.webp", alt: "Post detail page", caption: "Post detail", portrait: true },
+      { src: "/images/projects/facebook-replication/shot-05.webp", alt: "Notifications list", caption: "Notifications", portrait: true },
+      { src: "/images/projects/facebook-replication/shot-06.webp", alt: "Profile page with followers, follow and message buttons", caption: "Profile", portrait: true },
+    ],
     repo: null, // private repo
     demo: null,
     apk: null,
@@ -261,7 +321,12 @@ const projects = [
     ],
     metrics: [],
     architecture: null,
-    screenshots: [],
+    screenshots: [
+      { src: "/images/projects/bulldogs-exchange/shot-01.webp", alt: "Home screen with the NU Bulldogs Exchange intro and product cards", caption: "Home", portrait: true },
+      { src: "/images/projects/bulldogs-exchange/shot-02.webp", alt: "Product detail with color options and add to cart", caption: "Product detail", portrait: true },
+      { src: "/images/projects/bulldogs-exchange/shot-03.webp", alt: "Cart with quantities and check-out buttons", caption: "Cart", portrait: true },
+      { src: "/images/projects/bulldogs-exchange/shot-04.webp", alt: "Profile with recommended items and order status tabs", caption: "Profile", portrait: true },
+    ],
     repo: "https://github.com/rafae8080/marinas_longexam1",
     demo: null,
     apk: null,
@@ -303,7 +368,7 @@ const projects = [
     type: ["web"],
     client: false,
     confidential: false,
-    role: `${TODO}: your part`,
+    role: "Front end",
     team: "Team of 2",
     stack: ["PHP", "MySQL", "JavaScript"],
     summary: "PHP and MySQL user management with Admin and Barangay Official roles.",
@@ -330,11 +395,11 @@ const projects = [
     type: ["desktop"],
     client: false,
     confidential: false,
-    role: `${TODO}: solo or team, and the course`,
-    team: `${TODO}: solo or team`,
+    role: "Solo coursework (Data Structures)",
+    team: "Solo",
     stack: ["Java", "Swing"],
     summary: "Java Swing workout planner: queue up exercises, then go through them one at a time.",
-    problem: `${TODO}: course / context`,
+    problem: "Data Structures coursework: put a queue to work in a small desktop app.",
     built: [
       "Add exercises with a name and duration to a first-in, first-out queue (LinkedList)",
       "Start a workout and step through the exercises in order",

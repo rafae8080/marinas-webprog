@@ -28,4 +28,4 @@ PHP (PDO) · MySQL · HTML, CSS, vanilla JavaScript · XAMPP
 
 ## Team
 
-Rafael Marinas (rafae8080) and TODO(rafael): teammate name (GitHub: kaia-cmd). TODO(rafael): who did what.
+Rafael Marinas (rafae8080) and TODO(rafael): teammate name (GitHub: kaia-cmd). TODO(rafael): who did what. i only do front end but i think i cant run this so no need to add this on the portfolio, but if needeed, go add it

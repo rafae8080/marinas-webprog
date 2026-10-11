@@ -66,3 +66,64 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Leaflet themed with the design tokens (Ops Map, §B1).
+   `:root` raises specificity so these win over leaflet.css, which the dashboard may load later. */
+:root .leaflet-container {
+  background: var(--bg);
+  font-family: var(--font-sans);
+}
+:root .leaflet-div-icon.ops-pin {
+  background: transparent;
+  border: 0;
+}
+:root .leaflet-popup-content-wrapper,
+:root .leaflet-popup-tip {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+}
+:root .leaflet-popup-content {
+  margin: 12px 14px;
+  min-width: 200px;
+}
+:root .leaflet-container a.leaflet-popup-close-button {
+  color: var(--muted);
+}
+:root .leaflet-bar,
+:root .leaflet-bar a {
+  border-radius: 0 !important;
+}
+:root .leaflet-bar {
+  border: 1px solid var(--line) !important;
+  box-shadow: none !important;
+}
+:root .leaflet-bar a {
+  background: var(--surface);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+}
+:root .leaflet-bar a:hover {
+  background: var(--bg);
+}
+:root .leaflet-control-attribution {
+  background: var(--surface) !important;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+:root .leaflet-control-attribution a {
+  color: var(--ink);
+}
+/* OSM tiles toned to the palette: muted gray by day, inverted by night */
+:root .ops-tiles {
+  filter: grayscale(1) contrast(0.85) brightness(1.04);
+}
+:root[data-theme="night"] .ops-tiles {
+  filter: grayscale(1) invert(1) brightness(0.8) contrast(0.85);
+}
+:root .leaflet-popup-content a {
+  color: var(--accent);
+}
