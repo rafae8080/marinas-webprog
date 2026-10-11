@@ -156,7 +156,7 @@ const DashArticleListPage = () => {
         <Button
           size="small"
           variant="outlined"
-          onClick={() => navigate(`/articles/${row.name}`)}
+          onClick={() => navigate(`/notes/${row.name}`)}
         >
           View
         </Button>

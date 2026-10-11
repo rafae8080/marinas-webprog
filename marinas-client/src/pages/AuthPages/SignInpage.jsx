@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { loginUser } from "../../services/UserService";
 
@@ -131,15 +131,6 @@ const SignInPage = () => {
           </Button>
         </div>
 
-        <p className="mt-3 text-sm leading-6 text-stone-500">
-          Don't have an account?{" "}
-          <Link
-            to="/auth/signup"
-            className="font-semibold text-stone-900 transition hover:text-stone-600"
-          >
-            Sign up free
-          </Link>
-        </p>
       </form>
     </>
   );

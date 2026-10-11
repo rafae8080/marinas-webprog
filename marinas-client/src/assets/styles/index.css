@@ -19,6 +19,9 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+/* `night:` variant for the rare things tokens can't cover (e.g. inverting the dark logo) */
+@custom-variant night (&:where([data-theme="night"], [data-theme="night"] *));
+
 @layer base {
   html {
     color-scheme: light;

@@ -37,7 +37,7 @@ const AboutPage = () => {
               <Button to="/" variant="primary">
                 Back Home
               </Button>
-              <Button to="/articles">Read Articles</Button>
+              <Button to="/notes">Read Articles</Button>
             </div>
           </div>
         </div>

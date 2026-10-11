@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
 
 // HomePage Structure
 import Layout from "./layouts/Layout";
@@ -6,10 +6,11 @@ import ArticlePage from "./pages/LandingPages/ArticlePage";
 import HomePage from "./pages/LandingPages/HomePage";
 import AboutPage from "./pages/LandingPages/AboutPage";
 import ArticleListPage from "./pages/LandingPages/ArticleListPage";
+import WorkPage from "./pages/LandingPages/WorkPage";
+import CaseStudyPage from "./pages/LandingPages/CaseStudyPage";
 
 import AuthLayout from "./layouts/AuthLayout";
 import SignInPage from "./pages/AuthPages/SignInpage";
-import SignUpPage from "./pages/AuthPages/SignUpPage";
 
 import DashLayout from "./layouts/DashLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -20,6 +21,12 @@ import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage";
 
 import NotFoundPage from "./pages/NotFoundPage";
 import StyleguidePage from "./pages/StyleguidePage"; // TEMP: remove in Phase 13
+
+// Old article URLs keep working (§B3)
+const ArticleRedirect = () => {
+  const { name } = useParams();
+  return <Navigate to={`/notes/${name}`} replace />;
+};
 
 const routes = [
   // TEMP: remove in Phase 13
@@ -38,16 +45,37 @@ const routes = [
         element: <HomePage />,
       },
       {
+        path: "work",
+        element: <WorkPage />,
+      },
+      {
+        path: "work/:slug",
+        element: <CaseStudyPage />,
+      },
+      {
         path: "about",
         element: <AboutPage />,
       },
+      // Field Notes reuse the article pages until Phase 10
       {
-        path: "articles",
+        path: "notes",
         element: <ArticleListPage />,
       },
       {
-        path: "articles/:name",
+        path: "notes/:name",
         element: <ArticlePage />,
+      },
+      {
+        path: "articles",
+        element: <Navigate to="/notes" replace />,
+      },
+      {
+        path: "articles/:name",
+        element: <ArticleRedirect />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
@@ -59,10 +87,6 @@ const routes = [
       {
         path: "signin",
         element: <SignInPage />,
-      },
-      {
-        path: "signup",
-        element: <SignUpPage />,
       },
     ],
   },

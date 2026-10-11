@@ -22,7 +22,7 @@ const HomePage = () => {
               <Button to="/about" variant="primary">
                 About Me
               </Button>
-              <Button to="/articles">Read Articles</Button>
+              <Button to="/notes">Read Articles</Button>
             </div>
           </div>
 

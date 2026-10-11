@@ -20,7 +20,7 @@ function ArticlePage() {
   if (notFound || !article) return (
     <div className="py-20 text-center text-stone-400">
       <p className="text-lg font-semibold">Article not found.</p>
-      <div className="mt-4"><Button to="/articles">← Back to Articles</Button></div>
+      <div className="mt-4"><Button to="/notes">← Back to Articles</Button></div>
     </div>
   );
 
@@ -30,7 +30,7 @@ function ArticlePage() {
       <section className="border-y-2 border-stone-300 bg-stone-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <div className="mb-4">
-            <Button to="/articles">← Back to Articles</Button>
+            <Button to="/notes">← Back to Articles</Button>
           </div>
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-stone-400">
             {article.tag}
@@ -67,7 +67,7 @@ function ArticlePage() {
           </div>
 
           <div className="mt-8 border-t-2 border-stone-300 pt-6">
-            <Button to="/articles">Back to Articles</Button>
+            <Button to="/notes">Back to Articles</Button>
           </div>
         </div>
       </section>
