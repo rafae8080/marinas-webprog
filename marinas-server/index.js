@@ -6,6 +6,8 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const articleRoutes = require("./routes/articleRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const faqRoutes = require("./routes/faqRoutes");
+const rmoRoutes = require("./routes/rmoRoutes");
 
 const app = express();
 
@@ -50,6 +52,8 @@ app.use(async (req, res, next) => {
 app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/faqs", faqRoutes);
+app.use("/api/rmo", rmoRoutes);
 
 // Error Handling
 app.use((err, req, res, next) => {

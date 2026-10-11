@@ -68,6 +68,7 @@ const Tile = ({ hobby, index, compact }) => {
 
         {project && (
           <Link
+            viewTransition
             to={`/work/${project.slug}`}
             className="mt-auto pt-4 font-mono text-xs uppercase tracking-[0.12em] text-accent underline-offset-4 hover:underline"
           >

@@ -64,6 +64,7 @@ const OpsMapCanvas = ({ pins }) => {
                 </p>
                 {pin.link && (
                   <Link
+                    viewTransition
                     to={pin.link.to}
                     className="mt-2 inline-block font-mono text-[11px] uppercase tracking-[0.12em] text-accent underline-offset-4 hover:underline"
                   >

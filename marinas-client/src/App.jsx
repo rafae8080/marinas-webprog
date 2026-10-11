@@ -2,10 +2,10 @@ import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-
 
 // HomePage Structure
 import Layout from "./layouts/Layout";
-import ArticlePage from "./pages/LandingPages/ArticlePage";
 import HomePage from "./pages/LandingPages/HomePage";
 import AboutPage from "./pages/LandingPages/AboutPage";
-import ArticleListPage from "./pages/LandingPages/ArticleListPage";
+import NotesPage from "./pages/LandingPages/NotesPage";
+import NotePage from "./pages/LandingPages/NotePage";
 import WorkPage from "./pages/LandingPages/WorkPage";
 import CaseStudyPage from "./pages/LandingPages/CaseStudyPage";
 
@@ -56,14 +56,13 @@ const routes = [
         path: "about",
         element: <AboutPage />,
       },
-      // Field Notes reuse the article pages until Phase 10
       {
         path: "notes",
-        element: <ArticleListPage />,
+        element: <NotesPage />,
       },
       {
         path: "notes/:name",
-        element: <ArticlePage />,
+        element: <NotePage />,
       },
       {
         path: "articles",

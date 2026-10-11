@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { contact, coords } from "../data/site";
 
 const label = "font-mono text-[11px] uppercase tracking-[0.12em] text-muted";
-const linkClass = "text-ink underline-offset-4 transition-colors hover:text-accent hover:underline";
+const linkClass =
+  "text-ink underline-offset-4 transition-colors hover:text-accent hover:underline";
 
 const Footer = () => (
   <footer className="border-t border-line bg-bg">
@@ -11,24 +12,42 @@ const Footer = () => (
         <p className={label}>
           {coords.label} · {coords.place}
         </p>
-        <a href={`mailto:${contact.email}`} className={`mt-3 inline-block break-all font-display text-xl font-medium tracking-[-0.02em] sm:text-2xl ${linkClass}`}>
+        <a
+          href={`mailto:${contact.email}`}
+          className={`mt-3 inline-block break-all font-display text-xl font-medium tracking-[-0.02em] sm:text-2xl ${linkClass}`}
+        >
           {contact.email}
         </a>
       </div>
 
       <ul className="flex flex-wrap items-start gap-x-6 gap-y-3 font-mono text-xs uppercase tracking-[0.12em] md:justify-end">
         <li>
-          <a href={contact.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          <a
+            href={contact.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
             GitHub
           </a>
         </li>
         <li>
-          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          <a
+            href={contact.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
             LinkedIn
           </a>
         </li>
         <li>
-          <a href={contact.sourceRepo} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          <a
+            href={contact.sourceRepo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
             Source on GitHub
           </a>
         </li>
@@ -38,9 +57,6 @@ const Footer = () => (
         <p className={label}>
           © {new Date().getFullYear()} {contact.name}
         </p>
-        <Link to="/auth/signin" className="font-mono text-[11px] lowercase tracking-[0.12em] text-muted hover:text-ink">
-          admin
-        </Link>
       </div>
     </div>
   </footer>

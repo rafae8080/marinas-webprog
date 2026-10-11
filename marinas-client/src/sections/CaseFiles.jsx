@@ -1,5 +1,6 @@
 import Button from "../components/ui/Button";
 import CaseFileCard from "../components/ui/CaseFileCard";
+import { RevealGroup, RevealItem } from "../components/ui/Reveal";
 import SectionHeader from "../components/ui/SectionHeader";
 import projects, { isTodo } from "../data/projects";
 import Section from "./Section";
@@ -16,21 +17,22 @@ const CaseFiles = () => (
       title="Case Files"
       kicker="The projects I'd walk an interviewer through first: what the problem was, what I built, and what it measured."
     />
-    <div className="mt-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <RevealGroup className="mt-6 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {featured.map(({ project, index }) => (
-        <CaseFileCard
-          key={project.slug}
-          index={index}
-          title={project.title}
-          status={project.status}
-          year={project.year}
-          stack={project.stack.slice(0, 3)}
-          metric={project.cardMetric}
-          summary={isTodo(project.summary) ? undefined : project.summary}
-          to={`/work/${project.slug}`}
-        />
+        <RevealItem key={project.slug}>
+          <CaseFileCard
+            index={index}
+            title={project.title}
+            status={project.status}
+            year={project.year}
+            stack={project.stack.slice(0, 3)}
+            metric={project.cardMetric}
+            summary={isTodo(project.summary) ? undefined : project.summary}
+            to={`/work/${project.slug}`}
+          />
+        </RevealItem>
       ))}
-    </div>
+    </RevealGroup>
     <div className="mt-10">
       <Button to="/work" variant="ghost">
         View all case files →

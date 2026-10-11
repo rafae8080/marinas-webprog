@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import CaseFileCard from "../../components/ui/CaseFileCard";
 import SectionHeader from "../../components/ui/SectionHeader";
+import { RevealGroup, RevealItem } from "../../components/ui/Reveal";
 import Tag from "../../components/ui/Tag";
 import projects, { isTodo, projectTypes } from "../../data/projects";
 
@@ -23,8 +24,9 @@ const chipClass = (active) =>
   }`;
 
 const IndexRow = ({ project }) => (
-  <li>
+  <RevealItem as="li">
     <Link
+      viewTransition
       to={`/work/${project.slug}`}
       className="group grid grid-cols-[auto_1fr] items-baseline gap-x-4 gap-y-1 border-b border-line py-4 font-mono text-xs uppercase tracking-[0.12em] sm:flex sm:gap-4"
     >
@@ -41,7 +43,7 @@ const IndexRow = ({ project }) => (
         <Tag tone={statusTone[project.status] ?? "neutral"}>{project.status}</Tag>
       </span>
     </Link>
-  </li>
+  </RevealItem>
 );
 
 export default function WorkPage() {
@@ -103,27 +105,28 @@ export default function WorkPage() {
       </p>
 
       {view === "index" ? (
-        <ul className="mt-2 border-t border-line">
+        <RevealGroup as="ul" key={`index-${filter}`} className="mt-2 border-t border-line">
           {shown.map((project) => (
             <IndexRow key={project.slug} project={project} />
           ))}
-        </ul>
+        </RevealGroup>
       ) : (
-        <div className="mt-4 grid gap-8 md:grid-cols-2">
+        <RevealGroup key={`grid-${filter}`} className="mt-4 grid gap-8 md:grid-cols-2">
           {shown.map((project) => (
-            <CaseFileCard
-              key={project.slug}
-              index={Number(project.caseNo)}
-              title={project.title}
-              status={project.status}
-              year={project.year}
-              stack={project.stack.slice(0, 4)}
-              metric={project.cardMetric}
-              summary={isTodo(project.summary) ? undefined : project.summary}
-              to={`/work/${project.slug}`}
-            />
+            <RevealItem key={project.slug}>
+              <CaseFileCard
+                index={Number(project.caseNo)}
+                title={project.title}
+                status={project.status}
+                year={project.year}
+                stack={project.stack.slice(0, 4)}
+                metric={project.cardMetric}
+                summary={isTodo(project.summary) ? undefined : project.summary}
+                to={`/work/${project.slug}`}
+              />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       )}
     </section>
   );

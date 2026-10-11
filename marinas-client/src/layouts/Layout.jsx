@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
+import RadyoWidget from "../components/radyo/RadyoWidget";
 import StatusBar from "../components/StatusBar";
 import TopoBackground from "../components/TopoBackground";
 
@@ -34,6 +35,7 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
+      <RadyoWidget />
     </div>
   );
 };

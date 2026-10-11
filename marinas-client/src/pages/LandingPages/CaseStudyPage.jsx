@@ -55,7 +55,7 @@ export default function CaseStudyPage() {
 
   return (
     <article className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <Link to="/work" className={`${label} hover:text-ink`}>
+      <Link viewTransition to="/work" className={`${label} hover:text-ink`}>
         ← Index
       </Link>
 
@@ -202,13 +202,13 @@ export default function CaseStudyPage() {
       )}
 
       <nav aria-label="More case files" className="grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
-        <Link to={`/work/${prev.slug}`} className="group border border-line p-4 hover:border-ink">
+        <Link viewTransition to={`/work/${prev.slug}`} className="group border border-line p-4 hover:border-ink">
           <span className={label}>← Previous</span>
           <span className="mt-1 block font-display text-lg font-medium text-ink group-hover:text-accent">
             {prev.title}
           </span>
         </Link>
-        <Link to={`/work/${next.slug}`} className="group border border-line p-4 text-right hover:border-ink">
+        <Link viewTransition to={`/work/${next.slug}`} className="group border border-line p-4 text-right hover:border-ink">
           <span className={label}>Next →</span>
           <span className="mt-1 block font-display text-lg font-medium text-ink group-hover:text-accent">
             {next.title}

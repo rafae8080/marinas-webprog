@@ -25,7 +25,7 @@ const Button = ({
 
   if (to) {
     return (
-      <Link to={to} className={classes} {...rest}>
+      <Link viewTransition to={to} className={classes} {...rest}>
         {children}
       </Link>
     );

@@ -18,7 +18,7 @@ const desktopClass = ({ isActive }) =>
   `${linkBase} ${isActive ? `text-ink ${activeLine}` : "text-muted hover:text-ink"}`;
 
 const Logo = ({ onClick }) => (
-  <Link to="/" onClick={onClick} className="flex shrink-0 items-center" aria-label="Rafael Marinas, home">
+  <Link viewTransition to="/" onClick={onClick} className="flex shrink-0 items-center" aria-label="Rafael Marinas, home">
     <img src="/raf_logo.png" alt="" width="150" height="50" className="h-9 w-auto night:invert sm:h-10" />
   </Link>
 );
@@ -92,6 +92,7 @@ const MobileMenu = ({ onClose }) => {
             {links.map((link) => (
               <li key={link.to} className="border-b border-line last:border-b-0">
                 <NavLink
+                  viewTransition
                   to={link.to}
                   onClick={onClose}
                   className={({ isActive }) =>
@@ -143,11 +144,11 @@ const NavBar = () => {
                 </span>
               )}
               {link.hash ? (
-                <Link to={link.to} className={`${linkBase} text-muted hover:text-ink`}>
+                <Link viewTransition to={link.to} className={`${linkBase} text-muted hover:text-ink`}>
                   {link.label}
                 </Link>
               ) : (
-                <NavLink to={link.to} className={desktopClass}>
+                <NavLink viewTransition to={link.to} className={desktopClass}>
                   {link.label}
                 </NavLink>
               )}

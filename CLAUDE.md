@@ -12,7 +12,9 @@ starting any phase, and follow "Part A — Rules for Claude Code" in it.
 3. **One phase per session/request.** Stop when that phase's "Verify" list passes and report the results.
 4. **Never invent facts** (metrics, projects, dates, clients, testimonials). Use `PORTFOLIO_PLAN.md` §B2 or leave `TODO(rafael): …`.
 5. **Design tokens only** (§B1). No `stone-*`/`zinc-*`/raw hex in new components. Follow the guardrails in §B1.6.
-6. **$0 budget.** No paid APIs or services, and no AI/LLM API for the chatbot.
+6. **$0 budget.** No paid APIs or services. The chatbot (RMO) may use a **free-tier** OpenAI-compatible LLM API
+   (Rafael's decision): key on the server only, answers grounded in `marinas-server/data/rmo-facts.js` + the FAQs,
+   and it must fall back to the FAQ list when the AI is off or unavailable. Never enable paid billing.
 7. **Never commit secrets.** `.env` stays gitignored. Document new variables in `marinas-server/.env.example`.
 
 ## Project layout

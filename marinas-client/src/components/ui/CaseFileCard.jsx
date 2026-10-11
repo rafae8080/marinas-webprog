@@ -45,7 +45,7 @@ const CaseFileCard = ({ index, title, status, year, stack = [], metric, summary,
     "group relative mt-6 block border border-line bg-surface p-6 transition-[transform,border-color] hover:border-ink motion-safe:hover:-translate-y-0.5";
 
   return to ? (
-    <Link to={to} className={classes}>
+    <Link viewTransition to={to} className={classes}>
       {body}
     </Link>
   ) : (

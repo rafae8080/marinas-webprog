@@ -127,3 +127,52 @@
 :root .leaflet-popup-content a {
   color: var(--accent);
 }
+
+/* Radyo mascot (Phase 9). The reduced-motion block above stops all of these. */
+@keyframes radyo-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes radyo-led {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+@keyframes radyo-arc {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@utility animate-radyo-blink {
+  animation: radyo-blink 4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@utility animate-radyo-led {
+  animation: radyo-led 1.1s ease-in-out infinite;
+}
+@utility animate-radyo-arc {
+  animation: radyo-arc 1.2s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Static mascot: arcs stay visible instead of freezing on their invisible last frame */
+  .animate-radyo-arc,
+  .animate-radyo-blink,
+  .animate-radyo-led {
+    animation: none !important;
+  }
+}
+
+/* Route change crossfade (§B1.5): React Router's viewTransition + the View Transitions API, 180ms.
+   Browsers without the API just switch pages instantly. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

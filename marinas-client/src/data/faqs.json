@@ -1,0 +1,390 @@
+[
+  {
+    "question": "What is Rafael's tech stack?",
+    "answer": "Mainly MERN (MongoDB, Express, React, Node), plus Next.js, PHP and Flutter. Databases: MongoDB, MySQL, SQL Server, Supabase, Firebase.",
+    "keywords": [
+      "stack",
+      "tech",
+      "technologies",
+      "languages",
+      "framework",
+      "mern"
+    ],
+    "links": [
+      {
+        "label": "Field Kit",
+        "url": "/#field-kit"
+      }
+    ],
+    "order": 1
+  },
+  {
+    "question": "What is E-Telly?",
+    "answer": "A disaster preparedness and communication system (capstone, team of 5) with a P2P report relay between phones and real-time community chat. Rafael built the entire web app, backend and database.",
+    "keywords": [
+      "etelly",
+      "e-telly",
+      "capstone",
+      "disaster"
+    ],
+    "links": [
+      {
+        "label": "E-Telly case file",
+        "url": "/work/e-telly"
+      },
+      {
+        "label": "Live site",
+        "url": "https://e-tellyph.com"
+      }
+    ],
+    "order": 2
+  },
+  {
+    "question": "What did Rafael build in E-Telly?",
+    "answer": "The MERN web app and backend, the database design, live disaster reporting, the multi-hazard map, and hazard-aware route navigation in the Flutter app with Firebase Auth.",
+    "keywords": [
+      "role",
+      "contribution",
+      "etelly",
+      "part"
+    ],
+    "links": [
+      {
+        "label": "E-Telly case file",
+        "url": "/work/e-telly"
+      }
+    ],
+    "order": 3
+  },
+  {
+    "question": "How was E-Telly evaluated?",
+    "answer": "By 122 residents, 6 CDRRMO personnel and 5 IT professionals, with an overall usability mean of 4.05/5.00 (High).",
+    "keywords": [
+      "evaluation",
+      "usability",
+      "results",
+      "evaluated"
+    ],
+    "links": [
+      {
+        "label": "E-Telly case file",
+        "url": "/work/e-telly"
+      }
+    ],
+    "order": 4
+  },
+  {
+    "question": "Is Rafael available for work?",
+    "answer": "TODO(rafael): e.g. \"Yes, open to internships and freelance projects. Send a message below.\"",
+    "keywords": [
+      "available",
+      "availability",
+      "hire",
+      "hiring",
+      "freelance",
+      "internship",
+      "job"
+    ],
+    "links": [
+      {
+        "label": "Send a message",
+        "url": "/#contact"
+      }
+    ],
+    "order": 5
+  },
+  {
+    "question": "Does he do freelance work?",
+    "answer": "Yes. Since 2024 he has delivered 10+ client projects, from Android storybook apps to complete management systems.",
+    "keywords": [
+      "freelance",
+      "client",
+      "commission",
+      "clients"
+    ],
+    "links": [
+      {
+        "label": "Client work",
+        "url": "/work?type=client"
+      }
+    ],
+    "order": 6
+  },
+  {
+    "question": "Where is Rafael based?",
+    "answer": "Marikina City, Philippines.",
+    "keywords": [
+      "location",
+      "where",
+      "city",
+      "based",
+      "live"
+    ],
+    "links": [],
+    "order": 7
+  },
+  {
+    "question": "Where does he study?",
+    "answer": "BS Information Technology (Mobile & Web Applications) at National University Manila, expected to graduate June 2027.",
+    "keywords": [
+      "school",
+      "university",
+      "education",
+      "study",
+      "college",
+      "nu"
+    ],
+    "links": [
+      {
+        "label": "Education",
+        "url": "/about#education"
+      }
+    ],
+    "order": 8
+  },
+  {
+    "question": "What are his grades?",
+    "answer": "8-time Dean's Lister with a GWA of 3.68/4.00.",
+    "keywords": [
+      "deans list",
+      "gwa",
+      "grades",
+      "dean"
+    ],
+    "links": [],
+    "order": 9
+  },
+  {
+    "question": "What certifications does he have?",
+    "answer": "ITS Cybersecurity, PMI Project Management Ready, Cisco Computer Hardware Basics, and Lean Six Sigma Yellow Belt.",
+    "keywords": [
+      "certification",
+      "certifications",
+      "certified",
+      "credly",
+      "badge"
+    ],
+    "links": [
+      {
+        "label": "Certifications",
+        "url": "/#certifications"
+      }
+    ],
+    "order": 10
+  },
+  {
+    "question": "Does he build mobile apps?",
+    "answer": "Yes, with Flutter and Dart: an e-commerce app, a Facebook-style clone, and E-Telly's route navigation.",
+    "keywords": [
+      "mobile",
+      "flutter",
+      "android",
+      "app",
+      "dart"
+    ],
+    "links": [
+      {
+        "label": "Mobile projects",
+        "url": "/work?type=mobile"
+      }
+    ],
+    "order": 11
+  },
+  {
+    "question": "Does he know backend development?",
+    "answer": "Yes. Express/Node REST APIs with JWT auth and MongoDB, plus PHP and VB.NET systems. This site's own API is one example.",
+    "keywords": [
+      "backend",
+      "api",
+      "server",
+      "node",
+      "express"
+    ],
+    "links": [],
+    "order": 12
+  },
+  {
+    "question": "What is StayNest?",
+    "answer": "An Airbnb-style booking system in VB.NET that he's currently building: guests book, hosts list, admins approve, with a MySQL database, an MS Access backup and full documentation.",
+    "keywords": [
+      "staynest",
+      "booking",
+      "airbnb",
+      "vb.net"
+    ],
+    "links": [
+      {
+        "label": "StayNest case file",
+        "url": "/work/staynest"
+      }
+    ],
+    "order": 13
+  },
+  {
+    "question": "Why does he build management systems?",
+    "answer": "He has helped manage his family's 17-unit rental since 2017 (tenants, leases, monthly statements), so he knows what these systems need.",
+    "keywords": [
+      "why",
+      "story",
+      "apartment",
+      "property",
+      "rental"
+    ],
+    "links": [
+      {
+        "label": "His story",
+        "url": "/about"
+      }
+    ],
+    "order": 14
+  },
+  {
+    "question": "Does he know cybersecurity?",
+    "answer": "He's ITS Cybersecurity certified and has used OPNsense, Linux, Wireshark, NetworkMiner and Cisco Packet Tracer.",
+    "keywords": [
+      "security",
+      "cybersecurity",
+      "network",
+      "networking"
+    ],
+    "links": [],
+    "order": 15
+  },
+  {
+    "question": "Can I see his code?",
+    "answer": "Yes, at github.com/rafae8080. Each case file links to its repo when it's public.",
+    "keywords": [
+      "github",
+      "code",
+      "repo",
+      "source"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/rafae8080"
+      }
+    ],
+    "order": 16
+  },
+  {
+    "question": "How do I contact Rafael?",
+    "answer": "Use the contact form on this page, or email work.rafael22@gmail.com. LinkedIn works too.",
+    "keywords": [
+      "contact",
+      "email",
+      "message",
+      "reach"
+    ],
+    "links": [
+      {
+        "label": "Contact form",
+        "url": "/#contact"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/rafael-marinas-53703038b"
+      }
+    ],
+    "order": 17
+  },
+  {
+    "question": "Can I get his resume?",
+    "answer": "TODO(rafael): \"Ask through the contact form\" or link a PDF without the phone number.",
+    "keywords": [
+      "resume",
+      "cv"
+    ],
+    "links": [
+      {
+        "label": "Contact form",
+        "url": "/#contact"
+      }
+    ],
+    "order": 18
+  },
+  {
+    "question": "What languages does he speak?",
+    "answer": "English and Filipino.",
+    "keywords": [
+      "language",
+      "english",
+      "filipino",
+      "tagalog",
+      "speak"
+    ],
+    "links": [],
+    "order": 19
+  },
+  {
+    "question": "How was this website built?",
+    "answer": "React + Vite + Tailwind on the front end, Express + MongoDB on the back end, deployed on Vercel. I'm RMO: I answer from Rafael's verified facts using a free AI model, with this FAQ list as a backup.",
+    "keywords": [
+      "website",
+      "portfolio",
+      "built",
+      "this site"
+    ],
+    "links": [
+      {
+        "label": "Source code",
+        "url": "https://github.com/rafae8080/marinas-webprog"
+      }
+    ],
+    "order": 20
+  },
+  {
+    "question": "What does he do for fun?",
+    "answer": "Gym, basketball and taekwondo. He also used to play Mobile Legends, LoL, Call of Duty, NBA 2K and Tekken.",
+    "keywords": [
+      "hobbies",
+      "hobby",
+      "fun",
+      "free time",
+      "games"
+    ],
+    "links": [
+      {
+        "label": "Off the Clock",
+        "url": "/about#off-the-clock"
+      }
+    ],
+    "order": 21
+  },
+  {
+    "question": "Does he do UI design?",
+    "answer": "Yes. He designs in Figma and builds with Tailwind CSS.",
+    "keywords": [
+      "design",
+      "figma",
+      "ui",
+      "ux"
+    ],
+    "links": [],
+    "order": 22
+  },
+  {
+    "question": "Does he have project management skills?",
+    "answer": "PMI Project Management Ready and Lean Six Sigma Yellow Belt certified.",
+    "keywords": [
+      "project management",
+      "pmi",
+      "lean",
+      "six sigma"
+    ],
+    "links": [],
+    "order": 23
+  },
+  {
+    "question": "Who are you?",
+    "answer": "I'm RMO, Rafael's field radio. I answer questions about his work.",
+    "keywords": [
+      "rmo",
+      "radyo",
+      "bot",
+      "who are you"
+    ],
+    "links": [],
+    "order": 24
+  }
+]
