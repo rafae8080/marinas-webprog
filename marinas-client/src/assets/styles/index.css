@@ -2,12 +2,12 @@
 
 /* Field Map design tokens (PORTFOLIO_PLAN.md §B1.2). Day is the default, Night via data-theme on <html>. */
 :root, [data-theme="day"] {
-  --bg:#E8E6E0; --surface:#F6F5F1; --ink:#1B1E1A; --muted:#6B6A63; --line:#C8C2B3;
+  --bg:#E8E6E0; --surface:#F6F5F1; --ink:#1B1E1A; --muted:#5F5E57; --line:#C8C2B3;
   --accent:#8E1B1F; --accent-deep:#5E1014; --accent-wash:#8E1B1F14; --on-accent:#FFFFFF; --ok:#2F6B3A;
 }
 [data-theme="night"] {
   --bg:#0D1210; --surface:#151C19; --ink:#DCE3DA; --muted:#7C8A82; --line:#22302A;
-  --accent:#E5484D; --accent-deep:#8E1B1F; --accent-wash:#E5484D1F; --on-accent:#0D1210; --ok:#5FBF73;
+  --accent:#E85458; --accent-deep:#8E1B1F; --accent-wash:#E854581F; --on-accent:#0D1210; --ok:#5FBF73;
 }
 @theme inline {
   --color-bg: var(--bg); --color-surface: var(--surface); --color-ink: var(--ink);
@@ -55,6 +55,31 @@
 
 @utility animate-radar-ping {
   animation: radar-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Hero entrance (§B1.5), first visit per session only. Plain CSS so it runs without per-frame JavaScript.
+   Headline words rise + fade 60ms apart; contour lines draw in over 1.2s (their paths use pathLength="1").
+   The delay for each element is set inline as animation-delay. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(0.35em); }
+}
+@keyframes hero-draw {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+@utility animate-hero-rise {
+  animation: hero-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@utility animate-hero-draw {
+  stroke-dasharray: 1;
+  animation: hero-draw 1.2s ease-in-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* No staggered delays either: the headline and contours are simply there */
+  .animate-hero-rise,
+  .animate-hero-draw {
+    animation: none !important;
+  }
 }
 
 /* Reduced motion: nothing moves (§B1.5) */

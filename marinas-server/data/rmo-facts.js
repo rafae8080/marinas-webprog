@@ -8,7 +8,7 @@ IDENTITY
 
 EDUCATION
 - BS Information Technology, specialization in Mobile & Web Applications, National University Manila. Started 2023, expected to graduate June 2027.
-- 8-time Dean's Lister (trimester system), GWA 3.68/4.00.
+- 9-time Dean's Lister (trimester system), GWA 3.68/4.00.
 - Coursework includes Web Programming, Mobile Programming, Database Systems, Information Assurance & Security.
 
 EXPERIENCE
@@ -17,10 +17,10 @@ EXPERIENCE
 
 PROJECTS
 - E-Telly (capstone, team of 5, 2025–present, live at e-tellyph.com): disaster preparedness and communication system for Antipolo City. Rafael built the web app front end and backend (MERN), designed the database, built the live disaster reporting module, the multi-hazard map with resident reports, hazard-aware evacuation route navigation in the Flutter app, the P2P report relay between phones, and Firebase Auth sign-in. Evaluated by 122 residents, 6 CDRRMO personnel and 5 IT professionals; usability mean 4.05/5.00 (High).
-- StayNest (2026, in progress, solo): Airbnb-style booking desktop app in VB.NET (.NET 10 WinForms) with Guest, Host and Admin roles, MySQL with an automatic MS Access backup and sync, PBKDF2 password hashing, and full documentation.
-- Apartment Lease Management (2025, team of 2): PHP + SQL Server web app for a rental property client. Rafael did the front end and application logic; a teammate built the backend.
+- StayNest (2026, completed, solo): Airbnb-style booking desktop app in VB.NET (.NET 10 WinForms) with Guest, Host and Admin roles, MySQL with an automatic MS Access backup and sync, PBKDF2 password hashing, and full documentation.
+- Apartment Lease Management (2025, team of 2): PHP + SQL Server web app for a rental property client, Myra Marinas. Rafael did the front end and application logic; a teammate built the backend.
 - The Midnight Kape (2026, freelance, solo, live): café point-of-sale and management web app (React, Express, MongoDB): sales, inventory, suppliers, stock history, reports, staff accounts and audit logs.
-- E-Commerce App (Flutter, Firebase Auth, Cloud Firestore): catalog, cart with discounts, one-to-one chat.
+- E-Commerce App (2026, completed; Flutter, Firebase Auth, Cloud Firestore): catalog, cart with discounts, one-to-one chat.
 - Facebook Replication ("Owlbook", Flutter UI), NU Bulldogs Exchange (Flutter shop UI), StudentMS (ASP.NET Core MVC), UMS (PHP user management, front end), FitQueue (Java Swing workout queue, Data Structures coursework).
 - This portfolio: React + Vite + Tailwind front end, Express + MongoDB back end.
 

@@ -1,6 +1,8 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate, RouterProvider, useParams } from "react-router-dom";
 
 // HomePage Structure
+// Public pages stay in the main bundle: each is only a few KB, and a separate chunk would add a round trip
 import Layout from "./layouts/Layout";
 import HomePage from "./pages/LandingPages/HomePage";
 import AboutPage from "./pages/LandingPages/AboutPage";
@@ -10,17 +12,24 @@ import WorkPage from "./pages/LandingPages/WorkPage";
 import CaseStudyPage from "./pages/LandingPages/CaseStudyPage";
 
 import AuthLayout from "./layouts/AuthLayout";
-import SignInPage from "./pages/AuthPages/SignInpage";
-
-import DashLayout from "./layouts/DashLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import DashboardPage from "./pages/DashboardPages/DashboardPage";
-import ReportsPage from "./pages/DashboardPages/ReportsPage";
-import UsersPage from "./pages/DashboardPages/UsersPage";
-import DashArticleListPage from "./pages/DashboardPages/DashArticleListPage";
-
 import NotFoundPage from "./pages/NotFoundPage";
-import StyleguidePage from "./pages/StyleguidePage"; // TEMP: remove in Phase 13
+
+// Sign-in and the dashboard (MUI, charts, Leaflet) load on demand, so visitors never download them
+const SignInPage = lazy(() => import("./pages/AuthPages/SignInpage"));
+const DashLayout = lazy(() => import("./layouts/DashLayout"));
+const DashboardPage = lazy(() => import("./pages/DashboardPages/DashboardPage"));
+const ReportsPage = lazy(() => import("./pages/DashboardPages/ReportsPage"));
+const UsersPage = lazy(() => import("./pages/DashboardPages/UsersPage"));
+const DashArticleListPage = lazy(() => import("./pages/DashboardPages/DashArticleListPage"));
+
+const Loading = () => (
+  <p role="status" className="p-6 font-mono text-xs uppercase tracking-[0.12em] text-muted">
+    Loading…
+  </p>
+);
+
+const withSuspense = (element) => <Suspense fallback={<Loading />}>{element}</Suspense>;
 
 // Old article URLs keep working (§B3)
 const ArticleRedirect = () => {
@@ -29,12 +38,6 @@ const ArticleRedirect = () => {
 };
 
 const routes = [
-  // TEMP: remove in Phase 13
-  {
-    path: "styleguide",
-    element: <StyleguidePage />,
-    errorElement: <NotFoundPage />,
-  },
   {
     path: "/",
     element: <Layout />,
@@ -85,34 +88,30 @@ const routes = [
     children: [
       {
         path: "signin",
-        element: <SignInPage />,
+        element: withSuspense(<SignInPage />),
       },
     ],
   },
   {
     path: "dashboard/",
-    element: (
-      <ProtectedRoute>
-        <DashLayout />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(<DashLayout />)}</ProtectedRoute>,
     errorElement: <NotFoundPage />,
     children: [
       {
         path: "",
-        element: <DashboardPage />,
+        element: withSuspense(<DashboardPage />),
       },
       {
         path: "reports",
-        element: <ReportsPage />,
+        element: withSuspense(<ReportsPage />),
       },
       {
         path: "users",
-        element: <UsersPage />,
+        element: withSuspense(<UsersPage />),
       },
       {
         path: "articles",
-        element: <DashArticleListPage />,
+        element: withSuspense(<DashArticleListPage />),
       },
     ],
   },

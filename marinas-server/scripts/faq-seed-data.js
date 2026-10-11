@@ -8,7 +8,14 @@
 module.exports = [
   {
     question: "What is Rafael's tech stack?",
-    keywords: ["stack", "tech", "technologies", "languages", "framework", "mern"],
+    keywords: [
+      "stack",
+      "tech",
+      "technologies",
+      "languages",
+      "framework",
+      "mern",
+    ],
     answer:
       "Mainly MERN (MongoDB, Express, React, Node), plus Next.js, PHP and Flutter. Databases: MongoDB, MySQL, SQL Server, Supabase, Firebase.",
     links: [{ label: "Field Kit", url: "/#field-kit" }],
@@ -39,8 +46,17 @@ module.exports = [
   },
   {
     question: "Is Rafael available for work?",
-    keywords: ["available", "availability", "hire", "hiring", "freelance", "internship", "job"],
-    answer: 'TODO(rafael): e.g. "Yes, open to internships and freelance projects. Send a message below."',
+    keywords: [
+      "available",
+      "availability",
+      "hire",
+      "hiring",
+      "freelance",
+      "internship",
+      "job",
+    ],
+    answer:
+      "Yes, open to internships and freelance projects. Send a message below.",
     links: [{ label: "Send a message", url: "/#contact" }],
   },
   {
@@ -66,12 +82,18 @@ module.exports = [
   {
     question: "What are his grades?",
     keywords: ["deans list", "gwa", "grades", "dean"],
-    answer: "8-time Dean's Lister with a GWA of 3.68/4.00.",
+    answer: "9-time Dean's Lister with a GWA of 3.68/4.00.",
     links: [],
   },
   {
     question: "What certifications does he have?",
-    keywords: ["certification", "certifications", "certified", "credly", "badge"],
+    keywords: [
+      "certification",
+      "certifications",
+      "certified",
+      "credly",
+      "badge",
+    ],
     answer:
       "ITS Cybersecurity, PMI Project Management Ready, Cisco Computer Hardware Basics, and Lean Six Sigma Yellow Belt.",
     links: [{ label: "Certifications", url: "/#certifications" }],
@@ -79,7 +101,8 @@ module.exports = [
   {
     question: "Does he build mobile apps?",
     keywords: ["mobile", "flutter", "android", "app", "dart"],
-    answer: "Yes, with Flutter and Dart: an e-commerce app, a Facebook-style clone, and E-Telly's route navigation.",
+    answer:
+      "Yes, with Flutter and Dart: an e-commerce app, a Facebook-style clone, and E-Telly's route navigation.",
     links: [{ label: "Mobile projects", url: "/work?type=mobile" }],
   },
   {
@@ -93,7 +116,7 @@ module.exports = [
     question: "What is StayNest?",
     keywords: ["staynest", "booking", "airbnb", "vb.net"],
     answer:
-      "An Airbnb-style booking system in VB.NET that he's currently building: guests book, hosts list, admins approve, with a MySQL database, an MS Access backup and full documentation.",
+      "An Airbnb-style booking system in VB.NET that he built: guests book, hosts list, admins approve, with a MySQL database, an MS Access backup and full documentation.",
     links: [{ label: "StayNest case file", url: "/work/staynest" }],
   },
   {
@@ -113,22 +136,27 @@ module.exports = [
   {
     question: "Can I see his code?",
     keywords: ["github", "code", "repo", "source"],
-    answer: "Yes, at github.com/rafae8080. Each case file links to its repo when it's public.",
+    answer:
+      "Yes, at github.com/rafae8080. Each case file links to its repo when it's public.",
     links: [{ label: "GitHub", url: "https://github.com/rafae8080" }],
   },
   {
     question: "How do I contact Rafael?",
     keywords: ["contact", "email", "message", "reach"],
-    answer: "Use the contact form on this page, or email work.rafael22@gmail.com. LinkedIn works too.",
+    answer:
+      "Use the contact form on this page, or email work.rafael22@gmail.com. LinkedIn works too.",
     links: [
       { label: "Contact form", url: "/#contact" },
-      { label: "LinkedIn", url: "https://www.linkedin.com/in/rafael-marinas-53703038b" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/in/rafael-marinas-53703038b",
+      },
     ],
   },
   {
     question: "Can I get his resume?",
     keywords: ["resume", "cv"],
-    answer: 'TODO(rafael): "Ask through the contact form" or link a PDF without the phone number.',
+    answer: "Ask through the contact form",
     links: [{ label: "Contact form", url: "/#contact" }],
   },
   {
@@ -142,14 +170,19 @@ module.exports = [
     keywords: ["website", "portfolio", "built", "this site"],
     answer:
       "React + Vite + Tailwind on the front end, Express + MongoDB on the back end, deployed on Vercel. I'm RMO: I answer from Rafael's verified facts using a free AI model, with this FAQ list as a backup.",
-    links: [{ label: "Source code", url: "https://github.com/rafae8080/marinas-webprog" }],
+    links: [
+      {
+        label: "Source code",
+        url: "https://github.com/rafae8080/marinas-webprog",
+      },
+    ],
   },
   {
     question: "What does he do for fun?",
     keywords: ["hobbies", "hobby", "fun", "free time", "games"],
     answer:
       "Gym, basketball and taekwondo. He also used to play Mobile Legends, LoL, Call of Duty, NBA 2K and Tekken.",
-    links: [{ label: "Off the Clock", url: "/about#off-the-clock" }],
+    links: [{ label: "About him", url: "/about" }],
   },
   {
     question: "Does he do UI design?",
@@ -160,7 +193,8 @@ module.exports = [
   {
     question: "Does he have project management skills?",
     keywords: ["project management", "pmi", "lean", "six sigma"],
-    answer: "PMI Project Management Ready and Lean Six Sigma Yellow Belt certified.",
+    answer:
+      "PMI Project Management Ready and Lean Six Sigma Yellow Belt certified.",
     links: [],
   },
   {

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { loginUser } from "../../services/UserService";
 
 const inputClasses =
   "mt-2 w-full rounded-2xl border-2 border-stone-300 bg-stone-100 px-4 py-3 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-stone-500 focus:bg-stone-50";
 
 const SignInPage = () => {
+  useDocumentTitle("Sign in — Rafael Marinas");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "gen:topo": "node scripts/gen-topo.mjs",
+    "gen:og": "node scripts/gen-og.mjs",
+    "gen:sitemap": "node scripts/gen-sitemap.mjs",
     "images": "node scripts/optimize-images.mjs",
+    "images:sizes": "node scripts/gen-image-sizes.mjs",
     "portrait": "node scripts/make-portrait.mjs"
   },
   "dependencies": {

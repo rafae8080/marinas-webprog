@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import RadyoWidget from "../components/radyo/RadyoWidget";
 import StatusBar from "../components/StatusBar";
 import TopoBackground from "../components/TopoBackground";
+import { siteUrl } from "../data/site";
 
 // React Router doesn't scroll to #hash targets (e.g. /#contact) on its own
 const useHashScroll = () => {
@@ -17,8 +18,20 @@ const useHashScroll = () => {
   }, [hash, key]);
 };
 
+// Points the canonical link and og:url at the current page, so each route is indexed as itself
+const useCanonical = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const url = siteUrl + (pathname === "/" ? "/" : pathname.replace(/\/$/, ""));
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
+    document.querySelector('meta[property="og:url"]')?.setAttribute("content", url);
+  }, [pathname]);
+};
+
 const Layout = () => {
   useHashScroll();
+  useCanonical();
 
   return (
     <div className="relative isolate flex min-h-screen flex-col">

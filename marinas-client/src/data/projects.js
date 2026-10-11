@@ -72,13 +72,13 @@ const projects = [
     repo: null, // TODO(rafael): link E-Telly-mobile only after rotating the exposed MongoDB password (see audit)
     demo: "https://e-tellyph.com",
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Make the Mapbox navigation branch the mobile app's default, add automated tests for the alert and routing services, and publish an installable APK for residents.", // draft based on audit gaps; review before launch
   },
   {
     slug: "staynest",
     title: "StayNest",
     tier: "featured",
-    status: "IN PROGRESS",
+    status: "COMPLETED", // finished (confirmed by Rafael)
     year: "2026",
     type: ["desktop"],
     client: false,
@@ -119,7 +119,7 @@ const projects = [
     repo: "https://github.com/rafae8080/StayNest",
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Package it as a Windows installer and add automated tests for the booking, payment and MySQL-to-Access sync rules.", // draft based on audit gaps; review before launch
   },
   {
     slug: "apartment",
@@ -129,14 +129,14 @@ const projects = [
     year: "2025",
     type: ["web"],
     client: true,
-    clientName: `${TODO}: client name (only if they agree to be named)`,
+    clientName: "Myra Marinas",
     confidential: false,
     role: "Front end and application logic (teammate maverivk built the backend)",
     team: "Team of 2",
     stack: ["PHP", "SQL Server", "JavaScript", "CSS"],
     summary: "Web app for a landlord to manage apartments, units, leases and tenant payments in one place.",
     problem:
-      "A rental property client needed one place to manage apartments, their units, leases and tenant payments. TODO(rafael): one or two lines on how it was done before.",
+      "A rental property client needed one place to manage apartments, their units, leases and tenant payments.",
     built: [
       "Front end for every page: log-in and registration, apartments, units, leases and transactions",
       "Landlord log-in and registration with hashed passwords and sessions",
@@ -158,7 +158,7 @@ const projects = [
     repo: "https://github.com/rafae8080/Apartment",
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Rebuild it on a framework with role-based access, ship a clean database schema, and generate the monthly statements of account automatically.", // draft based on audit gaps; review before launch
   },
   {
     slug: "midnight-kape",
@@ -203,13 +203,13 @@ const projects = [
     repo: null, // private repo
     demo: "https://midnight-cafe-two.vercel.app",
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Add end-of-day sales summaries by email and an offline mode so the counter keeps selling when the internet drops.", // draft based on audit gaps; review before launch
   },
   {
     slug: "e-commerce-app",
     title: "E-Commerce App",
     tier: "listed",
-    status: "IN PROGRESS",
+    status: "COMPLETED", // finished (confirmed by Rafael)
     year: "2026",
     type: ["mobile"],
     client: false,
@@ -239,7 +239,7 @@ const projects = [
     repo: "https://github.com/rafae8080/marinas_advmobprogAY2627",
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Replace the DummyJSON demo catalog with a real product backend and a working checkout.", // draft based on audit gaps; review before launch
   },
   {
     slug: "portfolio",
@@ -265,7 +265,7 @@ const projects = [
     repo: "https://github.com/rafae8080/marinas-webprog",
     demo: "https://marinas-client.vercel.app",
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Write the first Field Notes about E-Telly and grow RMO's facts from the questions visitors actually ask.", // draft based on audit gaps; review before launch
   },
   {
     slug: "facebook-replication",
@@ -299,7 +299,7 @@ const projects = [
     repo: null, // private repo
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Connect it to a real backend with sign-in and live posts instead of sample data.", // draft based on audit gaps; review before launch
   },
   {
     slug: "bulldogs-exchange",
@@ -330,7 +330,7 @@ const projects = [
     repo: "https://github.com/rafae8080/marinas_longexam1",
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Back the shop with a real product database and a working checkout.", // draft based on audit gaps; review before launch
   },
   {
     slug: "studentms",
@@ -345,7 +345,7 @@ const projects = [
     team: "Solo",
     stack: ["C#", "ASP.NET Core MVC", "EF Core", "SQL Server"],
     summary: "ASP.NET Core MVC app to add, view, edit and delete student records.",
-    problem: `${TODO}: course / context`,
+    problem: "A small, self-contained app for keeping student records accurate: every record is validated before it is saved.",
     built: [
       "Full CRUD for students with a delete confirmation",
       "Server-side validation with data annotations (name length, grade range, email format)",
@@ -357,7 +357,7 @@ const projects = [
     repo: "https://github.com/rafae8080/StudentMS",
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Add search, paging and staff sign-in so only authorized users can edit records.", // draft based on audit gaps; review before launch
   },
   {
     slug: "ums",
@@ -372,7 +372,7 @@ const projects = [
     team: "Team of 2",
     stack: ["PHP", "MySQL", "JavaScript"],
     summary: "PHP and MySQL user management with Admin and Barangay Official roles.",
-    problem: `${TODO}: part of E-Telly or a separate class project?`,
+    problem: "Control who can see and change what: admins manage accounts, barangay officials only see the dashboard.",
     built: [
       "Session log-in with password verification and session ID regeneration",
       "Create, edit, delete users and reset passwords through a JSON API",
@@ -384,7 +384,7 @@ const projects = [
     repo: "https://github.com/rafae8080/UMS",
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Add audit logs and stronger password rules for admin accounts.", // draft based on audit gaps; review before launch
   },
   {
     slug: "fitqueue",
@@ -410,7 +410,7 @@ const projects = [
     repo: null, // private repo
     demo: null,
     apk: null,
-    nextSteps: `${TODO}: what you'd improve next`,
+    nextSteps: "Save workouts between sessions and add a timer for each exercise.", // draft based on audit gaps; review before launch
   },
 ];
 

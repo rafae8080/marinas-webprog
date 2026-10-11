@@ -4,6 +4,7 @@ import Tag from "./Tag";
 
 const statusTone = {
   DEPLOYED: "ok",
+  COMPLETED: "ok",
   "IN PROGRESS": "accent",
   ARCHIVED: "neutral",
 };

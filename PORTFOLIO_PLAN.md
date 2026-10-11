@@ -107,11 +107,11 @@ Defined as CSS variables in `marinas-client/src/assets/styles/index.css`, mapped
 | `--bg` | `#E8E6E0` | `#0D1210` | `bg-bg` | page background |
 | `--surface` | `#F6F5F1` | `#151C19` | `bg-surface` | cards, panels |
 | `--ink` | `#1B1E1A` | `#DCE3DA` | `text-ink` | primary text |
-| `--muted` | `#6B6A63` | `#7C8A82` | `text-muted` | secondary text, labels |
+| `--muted` | `#5F5E57` | `#7C8A82` | `text-muted` | secondary text, labels |
 | `--line` | `#C8C2B3` | `#22302A` | `border-line` | borders, contour lines |
-| `--accent` | `#8E1B1F` | `#E5484D` | `text-accent`, `bg-accent` | links, CTA, markers |
+| `--accent` | `#8E1B1F` | `#E85458` | `text-accent`, `bg-accent` | links, CTA, markers |
 | `--accent-deep` | `#5E1014` | `#8E1B1F` | `bg-accent-deep` | hover / pressed |
-| `--accent-wash` | `#8E1B1F14` | `#E5484D1F` | `bg-accent-wash` | highlighted rows |
+| `--accent-wash` | `#8E1B1F14` | `#E854581F` | `bg-accent-wash` | highlighted rows |
 | `--on-accent` | `#FFFFFF` | `#0D1210` | `text-on-accent` | text on accent fill |
 | `--ok` | `#2F6B3A` | `#5FBF73` | `text-ok` | status dot only |
 
@@ -120,12 +120,12 @@ Reference implementation:
 @import "tailwindcss";
 
 :root, [data-theme="day"] {
-  --bg:#E8E6E0; --surface:#F6F5F1; --ink:#1B1E1A; --muted:#6B6A63; --line:#C8C2B3;
+  --bg:#E8E6E0; --surface:#F6F5F1; --ink:#1B1E1A; --muted:#5F5E57; --line:#C8C2B3;
   --accent:#8E1B1F; --accent-deep:#5E1014; --accent-wash:#8E1B1F14; --on-accent:#FFFFFF; --ok:#2F6B3A;
 }
 [data-theme="night"] {
   --bg:#0D1210; --surface:#151C19; --ink:#DCE3DA; --muted:#7C8A82; --line:#22302A;
-  --accent:#E5484D; --accent-deep:#8E1B1F; --accent-wash:#E5484D1F; --on-accent:#0D1210; --ok:#5FBF73;
+  --accent:#E85458; --accent-deep:#8E1B1F; --accent-wash:#E854581F; --on-accent:#0D1210; --ok:#5FBF73;
 }
 @theme inline {
   --color-bg: var(--bg); --color-surface: var(--surface); --color-ink: var(--ink);
@@ -137,7 +137,7 @@ Reference implementation:
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 ```
-- Contrast checked: accent on bg is about 7.2:1 (Day) and 4.8:1 (Night), so both pass WCAG AA.
+- Contrast checked (Phase 13): every text token passes WCAG AA (4.5:1) on bg, surface and accent-wash in both themes. Day muted on bg is 5.2:1 and Night accent on surface is 4.8:1.
 - **Accent budget:** dark red covers under 10% of any screen.
 - Theme: `data-theme` on `<html>`. Default follows `prefers-color-scheme`, the choice is saved in `localStorage` key `theme`
   (wrapped in try/catch). Set it with an inline script in `index.html` **before** React loads so the page doesn't flash.
@@ -184,14 +184,14 @@ Library: `motion` (`npm i motion`, import from `motion/react`). Everything respe
 **Never publish:** phone number, home/property address, tenant or client personal data.
 
 **Education:** BS Information Technology, specialization in Mobile & Web Applications, National University Manila ·
-expected June 2027 · Dean's Lister 8 terms (trimester) · GWA 3.68/4.00 · Coursework: Web Programming, Mobile Programming,
+expected June 2027 · Dean's Lister 9 terms (trimester) · GWA 3.68/4.00 · Coursework: Web Programming, Mobile Programming,
 Database Systems, Information Assurance & Security
 
 **Headline metrics:**
 - E-Telly evaluated by **122 residents, 6 CDRRMO personnel, 5 IT professionals**, usability mean **4.05/5.00 (High)**
 - **10+ client projects** as a freelancer (2024–present)
 - **17 rental units** managed (14 residential, 3 commercial) since **2017**
-- **8×** Dean's Lister
+- **9×** Dean's Lister
 
 **Projects (from resume):**
 - **E-Telly**: capstone, team of 5, 2025–present. Decentralized disaster preparedness & communication system: P2P report
@@ -518,7 +518,7 @@ Use hero headline option <A/B/own: "...">. End with the Phase 5 hand-off block.
    **Contact** (secondary → `#contact`). Right side: portrait in a "field ID card" frame (CornerMarks, mono caption
    `ID · R. MARINAS · FULL-STACK`), plus an inline contour SVG that draws in.
 2. `SignalStrip.jsx`: 5 counters from `site.metrics`: 122 residents evaluated · 4.05/5 usability · 10+ client projects ·
-   17 units managed · 8× Dean's Lister. Each one has a tiny mono source label (e.g. `E-TELLY EVAL`).
+   17 units managed · 9× Dean's Lister. Each one has a tiny mono source label (e.g. `E-TELLY EVAL`).
 3. `CaseFiles.jsx`: `SEC-02 // CASE FILES` + the featured projects as `CaseFileCard`s + a "View all case files" link.
 4. Leave a `<section id="map">` placeholder for Phase 7.
 5. `FieldKit.jsx`: `SEC-04 // FIELD KIT`, skills grouped like an equipment loadout (mono category, Tags). No bars or percentages.
@@ -552,7 +552,7 @@ Extra details: <taekwondo rank / game mains / BSIT start year, or "none yet">. E
 
 **Steps for Claude:**
 1. `AboutPage.jsx` rewrite: `SEC-A1 // ORIGIN` with the story from §D3 (Rafael approves the wording) → Education block (NU, specialization,
-   Dean's List 8 terms, GWA, coursework) → Experience (freelance + property management) → reuse `FieldLog` → `OffTheClock`.
+   Dean's List 9 terms, GWA, coursework) → Experience (freelance + property management) → reuse `FieldLog` → `OffTheClock`.
    Use the real photo (`raf1.jfif` converted to WebP or `images/me/`). Remove the stock image and the hardcoded project list.
 2. `sections/OffTheClock.jsx`: 4 tiles (Gym, Basketball, Taekwondo, Gaming), each with a photo (or a tasteful mono placeholder
    `PHOTO PENDING` if missing), a one-line caption, and mono stats if provided (e.g. `RANK: …`). Gym tile links to the Gym Queue
@@ -842,7 +842,7 @@ Do NOT push or deploy yourself — prepare everything and give me the exact step
 | 6 | Does he do freelance work? | freelance, client, commission | Yes. Since 2024 he has delivered 10+ client projects, from Android storybook apps to complete management systems. |
 | 7 | Where is Rafael based? | location, where, city | Marikina City, Philippines. |
 | 8 | Where does he study? | school, university, education | BS Information Technology (Mobile & Web Applications) at National University Manila, expected to graduate June 2027. |
-| 9 | What are his grades? | deans list, gwa, grades | 8-time Dean's Lister with a GWA of 3.68/4.00. |
+| 9 | What are his grades? | deans list, gwa, grades | 9-time Dean's Lister with a GWA of 3.68/4.00. |
 | 10 | What certifications does he have? | certification, certified, credly | ITS Cybersecurity, PMI Project Management Ready, Cisco Computer Hardware Basics, and Lean Six Sigma Yellow Belt. |
 | 11 | Does he build mobile apps? | mobile, flutter, android, app | Yes, with Flutter and Dart: an e-commerce app, a Facebook-style clone, and E-Telly's route navigation. |
 | 12 | Does he know backend development? | backend, api, server, node | Yes. Express/Node REST APIs with JWT auth and MongoDB, plus PHP and VB.NET systems. This site's own API is one example. |
@@ -864,7 +864,7 @@ Do NOT push or deploy yourself — prepare everything and give me the exact step
 - **A:** "I build systems that keep working when the network doesn't." *(E-Telly angle)*
 - **B:** "I've managed 17 rental units since 2017. Now I build the systems behind places like it." *(origin angle)*
 - **Subline (both):** "Full-stack developer (MERN · Next.js · PHP) and Flutter dev from Marikina. BSIT at National University,
-  8× Dean's Lister."
+  9× Dean's Lister."
 
 ## D3. About / story draft (Rafael approves the wording)
 

@@ -46,3 +46,6 @@ for (const [i, file] of files.entries()) {
     .toFile(out);
   console.log(`${file} -> projects/${slug}/${basename(out)} (${info.width}x${info.height}, ${Math.round(info.size / 1024)} KB)`);
 }
+
+// Keep the width/height map for <img> tags in sync
+await import("./gen-image-sizes.mjs");

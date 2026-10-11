@@ -2,7 +2,7 @@ import Button from "../components/ui/Button";
 import SectionHeader from "../components/ui/SectionHeader";
 import Section from "./Section";
 
-// §D3 teaser: first paragraph of the story draft. TODO(rafael): approve the wording (§D3)
+// §D3 teaser: first paragraph of the story (wording approved by Rafael)
 const StoryTeaser = () => (
   <Section id="story">
     <div className="md:grid md:grid-cols-[14rem_1fr] md:gap-8">

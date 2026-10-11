@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
 import { heroPaths, heroViewBox } from "../assets/heroContours";
 import Button from "../components/ui/Button";
 import CornerMarks from "../components/ui/CornerMarks";
@@ -9,11 +8,7 @@ import Section from "./Section";
 // §D2 option A (chosen by Rafael) + the shared subline
 const headline = "I build systems that keep working when the network doesn't.";
 const subline =
-  "Full-stack developer (MERN · Next.js · PHP) and Flutter dev from Marikina. BSIT at National University, 8× Dean's Lister.";
-
-// The lint config can't see <motion.path> in JSX, so give these capitalized names
-const MotionPath = motion.path;
-const MotionSpan = motion.span;
+  "Full-stack developer (MERN · Next.js · PHP) and Flutter dev from Marikina. BSIT at National University, 9× Dean's Lister.";
 
 // The hero plays its entrance once per browser session; after that it renders still
 const SESSION_KEY = "hero-played";
@@ -25,60 +20,50 @@ const isFirstPlay = () => {
   }
 };
 
-// Headline revealed word by word: rise + fade, staggered (§B1.5). ~1.1s total.
-// With reduced motion, MotionConfig (main.jsx) drops the rise and keeps the fade.
-const lineVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
-};
-const wordVariants = {
-  hidden: { opacity: 0, y: "0.35em" },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
-
+// Headline revealed word by word: rise + fade, 60ms apart (§B1.5), ~1.1s total.
+// CSS animation (animate-hero-rise in index.css); reduced motion shows it at once.
 const Headline = ({ play }) => {
   const words = headline.split(" ");
   return (
-    <MotionSpan className="block" variants={lineVariants} initial={play ? "hidden" : false} animate="visible">
+    <span className="block">
       {words.map((word, i) => (
         <Fragment key={i}>
-          <MotionSpan className="inline-block" variants={wordVariants}>
+          <span
+            className={`inline-block ${play ? "animate-hero-rise" : ""}`}
+            style={play ? { animationDelay: `${0.1 + i * 0.06}s` } : undefined}
+          >
             {word}
-          </MotionSpan>
+          </span>
           {i < words.length - 1 && " "}
         </Fragment>
       ))}
-    </MotionSpan>
+    </span>
   );
 };
 
-// Contour lines that draw themselves in (§B1.5, 1.2s). Reduced motion: fade in only.
-const Contours = ({ play }) => {
-  const reduce = useReducedMotion();
-
-  return (
-    <svg
-      viewBox={heroViewBox}
-      aria-hidden="true"
-      className="pointer-events-none absolute -inset-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] text-line"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.25"
-      strokeLinejoin="round"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      {heroPaths.map((d, i) => (
-        <MotionPath
-          key={d}
-          d={d}
-          initial={!play ? false : reduce ? { opacity: 0 } : { pathLength: 0, opacity: 0 }}
-          animate={reduce ? { opacity: 1 } : { pathLength: 1, opacity: 1 }}
-          transition={{ duration: reduce ? 0.4 : 1.2, delay: reduce ? 0 : (i % 12) * 0.03, ease: "easeInOut" }}
-        />
-      ))}
-    </svg>
-  );
-};
+// Contour lines that draw themselves in (§B1.5, 1.2s); CSS animation, reduced motion shows them at once
+const Contours = ({ play }) => (
+  <svg
+    viewBox={heroViewBox}
+    aria-hidden="true"
+    className="pointer-events-none absolute -inset-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] text-line"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.25"
+    strokeLinejoin="round"
+    preserveAspectRatio="xMidYMid slice"
+  >
+    {heroPaths.map((d, i) => (
+      <path
+        key={d}
+        d={d}
+        pathLength={play ? 1 : undefined}
+        className={play ? "animate-hero-draw" : undefined}
+        style={play ? { animationDelay: `${(i % 12) * 0.03}s` } : undefined}
+      />
+    ))}
+  </svg>
+);
 
 const Hero = () => {
   const [play] = useState(isFirstPlay);
@@ -119,12 +104,12 @@ const Hero = () => {
             <span>Field ID</span>
             <span>{coords.label}</span>
           </div>
-          {/* TODO(rafael): replace with a better portrait (npm run portrait, see scripts/make-portrait.mjs) */}
           <img
             src="/images/me/portrait.webp"
             alt="Rafael Marinas"
             width="720"
             height="900"
+            fetchPriority="high"
             className="aspect-[4/5] w-full border border-line object-cover"
           />
           <figcaption className="flex items-center justify-between gap-3 pt-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ink">

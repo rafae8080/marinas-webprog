@@ -4,7 +4,6 @@ import Tag from "../../components/ui/Tag";
 import { coords, education, experience } from "../../data/site";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import FieldLog from "../../sections/FieldLog";
-import OffTheClock from "../../sections/OffTheClock";
 import Section from "../../sections/Section";
 
 const label = "font-mono text-[11px] uppercase tracking-[0.12em] text-muted";
@@ -21,7 +20,7 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* SEC-A1 Origin: story from §D3. TODO(rafael): approve the wording (§D3) */}
+      {/* SEC-A1 Origin: story from §D3 (wording approved by Rafael) */}
       <Section id="origin" className="grid gap-12 pt-12 md:pt-16 lg:grid-cols-[1.4fr_1fr] lg:items-start">
         <div>
           <SectionHeader as="h1" code="SEC-A1" title="Origin" />
@@ -100,7 +99,6 @@ export default function AboutPage() {
       </Section>
 
       <FieldLog code="SEC-A4" />
-      <OffTheClock code="SEC-A5" />
     </>
   );
 }

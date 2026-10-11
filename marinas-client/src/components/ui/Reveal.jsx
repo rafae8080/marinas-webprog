@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 // Staggered reveal (§B1.5): children rise + fade in, 60ms apart, once, when the group scrolls into view.
 // Reduced motion: MotionConfig (main.jsx) keeps the fade and drops the rise.
@@ -13,7 +13,7 @@ const itemVariants = {
 };
 
 // `as`: which element to render. Defined once here so components are never created during render.
-const tags = { div: motion.div, ul: motion.ul, ol: motion.ol, li: motion.li };
+const tags = { div: m.div, ul: m.ul, ol: m.ol, li: m.li };
 
 export const RevealGroup = ({ as = "div", children, ...rest }) => {
   const Tag = tags[as] ?? tags.div;

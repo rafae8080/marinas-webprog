@@ -1,11 +1,11 @@
 // Makes the hero portrait: public/images/me/portrait.webp (4:5, 720px wide).
 //
-//   npm run portrait                                   uses public/images/me/portrait.jpg
+//   npm run portrait                                   uses public/images/me/portrait.jpg / .jpeg / .png
 //   npm run portrait -- --from <file>                  uses another photo
 //   npm run portrait -- --from <file> --crop l,t,w,h   crops that box (in source pixels) first
 //
 // Without --crop the photo is center-cropped to 4:5. The source file is never changed.
-import { mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -19,7 +19,14 @@ const opt = (name) => {
   return i > -1 ? args[i + 1] : null;
 };
 
-const src = opt("--from") ? resolve(process.cwd(), opt("--from")) : join(root, "public", "images", "me", "portrait.jpg");
+const defaultSrc = ["portrait.jpg", "portrait.jpeg", "portrait.png"]
+  .map((name) => join(root, "public", "images", "me", name))
+  .find((file) => existsSync(file));
+const src = opt("--from") ? resolve(process.cwd(), opt("--from")) : defaultSrc;
+if (!src) {
+  console.error("No portrait found. Put portrait.jpg (or .jpeg / .png) in public/images/me/, or pass --from <file>.");
+  process.exit(1);
+}
 const outDir = join(root, "public", "images", "me");
 mkdirSync(outDir, { recursive: true });
 

@@ -4,10 +4,11 @@ import SectionHeader from "../../components/ui/SectionHeader";
 import { RevealGroup, RevealItem } from "../../components/ui/Reveal";
 import Tag from "../../components/ui/Tag";
 import projects, { isTodo, projectTypes } from "../../data/projects";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 const filters = ["all", ...projectTypes, "client"];
 
-const statusTone = { DEPLOYED: "ok", "IN PROGRESS": "accent", ARCHIVED: "neutral" };
+const statusTone = { DEPLOYED: "ok", COMPLETED: "ok", "IN PROGRESS": "accent", ARCHIVED: "neutral" };
 
 // Case numbers follow the full list order, so they don't change when filtering
 const indexed = projects.map((project, i) => ({ ...project, caseNo: String(i + 1).padStart(2, "0") }));
@@ -47,6 +48,7 @@ const IndexRow = ({ project }) => (
 );
 
 export default function WorkPage() {
+  useDocumentTitle("Work — Rafael Marinas");
   const [params, setParams] = useSearchParams();
   const requested = params.get("type")?.toLowerCase();
   const filter = filters.includes(requested) ? requested : "all";

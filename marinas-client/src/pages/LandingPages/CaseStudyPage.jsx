@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Lightbox from "../../components/Lightbox";
 import Button from "../../components/ui/Button";
 import CornerMarks from "../../components/ui/CornerMarks";
 import Counter from "../../components/ui/Counter";
 import Tag from "../../components/ui/Tag";
 import TodoText from "../../components/ui/TodoText";
+import imageSizes from "../../data/imageSizes.json";
 import projects from "../../data/projects";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useInView from "../../hooks/useInView";
 import NotFoundPage from "../NotFoundPage";
 
-const statusTone = { DEPLOYED: "ok", "IN PROGRESS": "accent", ARCHIVED: "neutral" };
+// Only loaded when a screenshot is opened
+const Lightbox = lazy(() => import("../../components/Lightbox"));
+
+// From `npm run images:sizes`: width/height so the layout doesn't shift while images load, and the 800px copy
+// (made for every image wider than that) so phones don't download full-size screenshots.
+// With load = false the image keeps its size but has no source yet.
+const imageProps = (src, sizes, load = true) => {
+  const size = imageSizes[src];
+  const props = size ? { width: size[0], height: size[1] } : {};
+  if (!load) return props;
+  props.src = src;
+  if (size && size[0] > 800) {
+    props.srcSet = `${src.replace(/\.webp$/, "-800w.webp")} 800w, ${src} ${size[0]}w`;
+    props.sizes = sizes;
+  }
+  return props;
+};
+
+const statusTone = { DEPLOYED: "ok", COMPLETED: "ok", "IN PROGRESS": "accent", ARCHIVED: "neutral" };
 const label = "font-mono text-[11px] uppercase tracking-[0.12em] text-muted";
 
 // TODO(rafael) values stay visible as placeholders (Part A3)
@@ -34,8 +54,11 @@ const Fact = ({ name, children }) => (
 export default function CaseStudyPage() {
   const { slug } = useParams();
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  // Screenshots start downloading only when the grid is near the screen (width/height keep its space meanwhile)
+  const [shotsRef, shotsNear] = useInView({ rootMargin: "600px 0px" });
 
   const position = projects.findIndex((p) => p.slug === slug);
+  useDocumentTitle(position === -1 ? "Not found — Rafael Marinas" : `${projects[position].title} — Case File`);
   if (position === -1) return <NotFoundPage />;
 
   const project = projects[position];
@@ -114,8 +137,9 @@ export default function CaseStudyPage() {
       {project.architecture && (
         <Section code={code()} title="Architecture">
           <img
-            src={project.architecture}
             alt={`${project.title} architecture diagram`}
+            loading="lazy"
+            {...imageProps(project.architecture, "(min-width: 1152px) 880px, (min-width: 768px) 70vw, 100vw")}
             className="w-full border border-line bg-surface"
           />
         </Section>
@@ -123,10 +147,21 @@ export default function CaseStudyPage() {
 
       {project.screenshots.length > 0 && (
         <Section code={code()} title="Screenshots">
+          <div ref={shotsRef}>
           {/* Desktop shots in a 2-column grid, phone shots in a narrower grid; the lightbox keeps one order */}
           {[
-            { portrait: false, grid: "grid gap-4 sm:grid-cols-2", img: "aspect-[16/9] object-cover object-top" },
-            { portrait: true, grid: "grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4", img: "h-auto" },
+            {
+              portrait: false,
+              grid: "grid gap-4 sm:grid-cols-2",
+              img: "aspect-[16/9] object-cover object-top",
+              sizes: "(min-width: 1152px) 440px, (min-width: 640px) 45vw, 100vw",
+            },
+            {
+              portrait: true,
+              grid: "grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4",
+              img: "h-auto",
+              sizes: "(min-width: 1152px) 210px, (min-width: 640px) 30vw, 50vw",
+            },
           ].map((group) => {
             const shots = project.screenshots
               .map((shot, i) => ({ shot, i }))
@@ -143,9 +178,8 @@ export default function CaseStudyPage() {
                       aria-label={`Open screenshot: ${shot.caption || shot.alt}`}
                     >
                       <img
-                        src={shot.src}
                         alt={shot.alt}
-                        loading="lazy"
+                        {...imageProps(shot.src, group.sizes, shotsNear)}
                         className={`w-full border border-line bg-surface transition-colors group-hover:border-ink ${group.img}`}
                       />
                       {shot.caption && (
@@ -159,6 +193,7 @@ export default function CaseStudyPage() {
               </ul>
             );
           })}
+          </div>
         </Section>
       )}
 
@@ -217,12 +252,14 @@ export default function CaseStudyPage() {
       </nav>
 
       {lightboxIndex !== null && (
-        <Lightbox
-          images={project.screenshots}
-          index={lightboxIndex}
-          onIndexChange={setLightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-        />
+        <Suspense fallback={null}>
+          <Lightbox
+            images={project.screenshots}
+            index={lightboxIndex}
+            onIndexChange={setLightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+          />
+        </Suspense>
       )}
     </article>
   );

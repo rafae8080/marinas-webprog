@@ -114,7 +114,7 @@ const Contact = () => {
   return (
     <Section id="contact">
       <SectionHeader
-        code="SEC-09"
+        code="SEC-08"
         title="Transmit"
         kicker="Hiring, a project, or a question about something here. Messages come straight to me."
       />

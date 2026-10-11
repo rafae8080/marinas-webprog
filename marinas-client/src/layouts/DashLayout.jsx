@@ -26,6 +26,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import ArticleIcon from "@mui/icons-material/Article";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 // ── Constants ────────────────────────────────────────────────────
 const drawerWidth = 240;
@@ -164,6 +165,7 @@ const getPageTitle = (pathname) =>
 
 // ─────────────────────────────────────────────────────────────────
 const DashLayout = () => {
+  useDocumentTitle("Dashboard — Rafael Marinas");
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const location = useLocation();

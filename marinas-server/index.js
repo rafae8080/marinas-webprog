@@ -16,13 +16,14 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS: allow origins from CLIENT_ORIGIN (comma-separated) plus local dev
+// CORS: allow origins from CLIENT_ORIGIN (comma-separated) plus local dev (vite dev and vite preview)
 const allowedOrigins = [
   ...(process.env.CLIENT_ORIGIN || "")
     .split(",")
     .map((o) => o.trim())
     .filter(Boolean),
   "http://localhost:5173",
+  "http://localhost:4173",
 ];
 
 const corsOptions = {

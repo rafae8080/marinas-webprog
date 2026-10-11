@@ -1,6 +1,8 @@
 import Button from "../components/ui/Button";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 export default function NotFoundPage() {
+  useDocumentTitle("Not found — Rafael Marinas");
   return (
     <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
       <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent">Signal lost · 404</p>

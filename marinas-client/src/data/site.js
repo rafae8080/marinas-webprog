@@ -8,6 +8,9 @@ export const contact = {
   sourceRepo: "https://github.com/rafae8080/marinas-webprog",
 };
 
+// Public URL for canonical links and sharing tags (also in index.html and scripts/gen-sitemap.mjs)
+export const siteUrl = "https://marinas-client.vercel.app";
+
 export const coords = {
   label: "14.65°N 121.10°E",
   lat: 14.65,
@@ -17,7 +20,8 @@ export const coords = {
   timeZone: "Asia/Manila",
 };
 
-export const role = "Full-stack developer (MERN, Next.js, PHP) + Flutter mobile";
+export const role =
+  "Full-stack developer (MERN, Next.js, PHP) + Flutter mobile";
 
 export const metrics = [
   {
@@ -48,16 +52,28 @@ export const metrics = [
     label: "rental units managed since 2017 (14 residential, 3 commercial)",
     source: "Property mgmt",
   },
-  { id: "deans-list", value: 8, suffix: "×", label: "Dean's Lister (trimester)", source: "NU Manila" },
+  {
+    id: "deans-list",
+    value: 9,
+    suffix: "×",
+    label: "Dean's Lister (trimester)",
+    source: "NU Manila",
+  },
 ];
 
 export const education = {
-  degree: "BS Information Technology, specialization in Mobile & Web Applications",
+  degree:
+    "BS Information Technology, specialization in Mobile & Web Applications",
   school: "National University Manila",
   expected: "June 2027",
   gwa: "3.68/4.00",
-  deansList: "8 terms (trimester)",
-  coursework: ["Web Programming", "Mobile Programming", "Database Systems", "Information Assurance & Security"],
+  deansList: "9 terms (trimester)",
+  coursework: [
+    "Web Programming",
+    "Mobile Programming",
+    "Database Systems",
+    "Information Assurance & Security",
+  ],
 };
 
 export const certifications = [
@@ -79,23 +95,47 @@ export const certifications = [
     date: "Oct 2026",
     url: "https://www.credly.com/badges/e292a918-a21f-4105-a6c1-2262a66497f0/public_url",
   },
-  { name: "Lean Six Sigma Yellow Belt", issuer: "MF OpEx/CSSC", date: "Oct 2025", url: null }, // TODO(rafael): Credly URL
+  {
+    name: "Lean Six Sigma Yellow Belt",
+    issuer: "MF OpEx/CSSC",
+    date: "Oct 2025",
+    url: null,
+  }, // no digital badge issued
 ];
 
 export const skills = [
-  { group: "Languages", items: ["JavaScript", "Java", "Dart", "PHP", "VB.NET", "HTML", "CSS"] },
+  {
+    group: "Languages",
+    items: ["JavaScript", "Java", "Dart", "PHP", "VB.NET", "HTML", "CSS"],
+  },
   {
     group: "Frameworks & libraries",
-    items: ["React", "Next.js", "Node.js", "Express.js", "Flutter", "Tailwind CSS"],
+    items: [
+      "React",
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "Flutter",
+      "Tailwind CSS",
+    ],
   },
   {
     group: "Data & backend services",
     items: ["MongoDB", "MySQL", "Microsoft SQL Server", "Supabase", "Firebase"],
   },
-  { group: "Tools", items: ["Git", "GitHub", "VS Code", "NetBeans", "Eclipse", "Figma"] },
+  {
+    group: "Tools",
+    items: ["Git", "GitHub", "VS Code", "NetBeans", "Eclipse", "Figma"],
+  },
   {
     group: "Networking & security",
-    items: ["OPNsense", "Linux", "Wireshark", "NetworkMiner", "Cisco Packet Tracer"],
+    items: [
+      "OPNsense",
+      "Linux",
+      "Wireshark",
+      "NetworkMiner",
+      "Cisco Packet Tracer",
+    ],
   },
   { group: "Spoken", items: ["English", "Filipino"] },
 ];
@@ -105,7 +145,8 @@ export const timeline = [
   {
     period: "2017",
     title: "Property Management Assistant",
-    detail: "Started helping run the family's apartment rental: tenants, lease contracts and monthly statements of account for 17 units.",
+    detail:
+      "Started helping run the family's apartment rental: tenants, lease contracts and monthly statements of account for 17 units.",
   },
   {
     period: "2023",
@@ -115,22 +156,25 @@ export const timeline = [
   {
     period: "2024",
     title: "Freelance Web & Software Developer",
-    detail: "10+ client projects since, from Android Studio storybook apps to full management systems.",
+    detail:
+      "10+ client projects since, from Android Studio storybook apps to full management systems.",
   },
   {
     period: "2025",
     title: "E-Telly capstone + Lean Six Sigma Yellow Belt",
-    detail: "Started E-Telly with a team of 5, building the web app, backend and database. Lean Six Sigma Yellow Belt (MF OpEx/CSSC, Oct 2025).",
+    detail:
+      "Started E-Telly with a team of 5, building the web app, backend and database. Lean Six Sigma Yellow Belt (MF OpEx/CSSC, Oct 2025).",
   },
   {
     period: "2026",
     title: "Certifications, Flutter apps and StayNest",
-    detail: "ITS Cybersecurity (May), PMI Project Management Ready and Cisco Computer Hardware Basics (Oct). Flutter e-commerce and Facebook-style apps, and StayNest in VB.NET.",
+    detail:
+      "ITS Cybersecurity (May), PMI Project Management Ready and Cisco Computer Hardware Basics (Oct). Flutter e-commerce and Facebook-style apps, and StayNest in VB.NET.",
   },
   {
     period: "June 2027",
     title: "Expected graduation",
-    detail: "BSIT, 8× Dean's Lister, GWA 3.68/4.00.",
+    detail: "BSIT, 9× Dean's Lister, GWA 3.68/4.00.",
   },
 ];
 
@@ -140,54 +184,17 @@ export const experience = [
     period: "2024–present",
     title: "Freelance Web & Software Developer",
     org: "Self-employed",
-    detail: "10+ client projects, from Android Studio storybook apps to full management systems.",
+    detail:
+      "10+ client projects, from Android Studio storybook apps to full management systems.",
   },
   {
     period: "2017–present",
     title: "Property Management Assistant",
     org: "Family-owned apartment rental",
-    detail: "Tenants, lease contracts and monthly statements of account for 17 units (14 residential, 3 commercial).",
+    detail:
+      "Tenants, lease contracts and monthly statements of account for 17 units (14 residential, 3 commercial).",
   },
 ];
-
-// Off the Clock (§B2). `photo`: a file in public/images/hobbies/ (e.g. "/images/hobbies/gym-1.webp"), or null for PHOTO PENDING.
-// `stats` show as mono labels; TODO(rafael) values stay visible until filled in.
-export const hobbies = [
-  {
-    id: "gym",
-    title: "Gym",
-    caption: "Gym and fitness.",
-    photo: null, // TODO(rafael): public/images/hobbies/gym-1.jpg
-    stats: [],
-    projectSlug: "fitqueue", // the workout queue app on /work
-  },
-  {
-    id: "basketball",
-    title: "Basketball",
-    caption: "Basketball.",
-    photo: null, // TODO(rafael): public/images/hobbies/basketball-1.jpg
-    stats: [],
-  },
-  {
-    id: "taekwondo",
-    title: "Taekwondo",
-    caption: "Taekwondo.",
-    photo: null, // TODO(rafael): public/images/hobbies/taekwondo-1.jpg
-    stats: [
-      { label: "Rank", value: "TODO(rafael): rank (optional)" },
-      { label: "Years", value: "TODO(rafael): years (optional)" },
-    ],
-  },
-  {
-    id: "gaming",
-    title: "Gaming",
-    caption: "Used to play these, and more.", // names as text only, no game logos or art (§B2)
-    photo: null, // TODO(rafael): public/images/hobbies/gaming-1.jpg (your setup, no game art)
-    stats: [{ label: "Mains", value: "TODO(rafael): mains (optional)" }],
-    games: ["Mobile Legends", "League of Legends", "Call of Duty", "NBA 2K", "Tekken"],
-  },
-];
-
 // Ops map pins. City-level coordinates ONLY (never a home, property or campus street address).
 // The E-Telly pilot area (Antipolo City) is left out until Rafael confirms he's allowed to show it.
 export const mapPins = [
@@ -204,7 +211,7 @@ export const mapPins = [
     label: "National University Manila",
     lat: 14.6,
     lng: 120.98,
-    text: "BSIT, Mobile & Web Applications. 8× Dean's Lister, expected June 2027.",
+    text: "BSIT, Mobile & Web Applications. 9× Dean's Lister, expected June 2027.",
     link: { to: "/about#education", label: "Education" },
   },
 ];

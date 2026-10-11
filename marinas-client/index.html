@@ -2,8 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rafael Marinas — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Rafael Marinas, full-stack (MERN, Next.js, PHP) and Flutter developer from Marikina City. BSIT at NU Manila, 9× Dean's Lister. Case files and contact."
+    />
+    <!-- Site URL: keep in sync with siteUrl in src/data/site.js and scripts/gen-sitemap.mjs -->
+    <link rel="canonical" href="https://marinas-client.vercel.app/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#E8E6E0" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D1210" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rafael Marinas" />
+    <meta property="og:title" content="Rafael Marinas — Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full-stack (MERN, Next.js, PHP) and Flutter developer from Marikina City. Case files from client work, a disaster-preparedness capstone and more."
+    />
+    <meta property="og:url" content="https://marinas-client.vercel.app/" />
+    <meta property="og:image" content="https://marinas-client.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rafael Marinas, full-stack developer (MERN, Next.js, PHP) and Flutter mobile developer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rafael Marinas — Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full-stack (MERN, Next.js, PHP) and Flutter developer from Marikina City."
+    />
+    <meta name="twitter:image" content="https://marinas-client.vercel.app/og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rafael Marinas",
+        "jobTitle": "Full-Stack Developer",
+        "url": "https://marinas-client.vercel.app/",
+        "image": "https://marinas-client.vercel.app/images/me/portrait.webp",
+        "email": "mailto:work.rafael22@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Marikina City",
+          "addressCountry": "PH"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "National University Manila"
+        },
+        "knowsAbout": ["React", "Node.js", "Express.js", "MongoDB", "Next.js", "PHP", "Flutter"],
+        "sameAs": ["https://github.com/rafae8080", "https://www.linkedin.com/in/rafael-marinas-53703038b"]
+      }
+    </script>
     <script>
       // Set the theme before React loads so the page doesn't flash the wrong one.
       (function () {
@@ -19,8 +72,16 @@
         }
         document.documentElement.setAttribute("data-theme", theme);
       })();
+      // Home only: start loading the hero portrait (the largest image on screen) before the app script runs
+      if (location.pathname === "/") {
+        var portrait = document.createElement("link");
+        portrait.rel = "preload";
+        portrait.as = "image";
+        portrait.href = "/images/me/portrait.webp";
+        portrait.setAttribute("fetchpriority", "high");
+        document.head.appendChild(portrait);
+      }
     </script>
-    <title>marinas-client</title>
   </head>
   <body>
     <div id="root"></div>

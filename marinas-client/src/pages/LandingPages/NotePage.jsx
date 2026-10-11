@@ -36,9 +36,10 @@ export default function NotePage() {
 
   if (status === "missing") return <NotFoundPage />;
 
+  // min-h-screen: the footer stays put while the note loads
   if (status === "loading" || status === "error") {
     return (
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="mx-auto min-h-screen max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <Link viewTransition to="/notes" className={`${mono} text-muted hover:text-ink`}>
           ← Field Notes
         </Link>

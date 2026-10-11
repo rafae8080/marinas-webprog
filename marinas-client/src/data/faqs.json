@@ -75,7 +75,7 @@
   },
   {
     "question": "Is Rafael available for work?",
-    "answer": "TODO(rafael): e.g. \"Yes, open to internships and freelance projects. Send a message below.\"",
+    "answer": "Yes, open to internships and freelance projects. Send a message below.",
     "keywords": [
       "available",
       "availability",
@@ -144,7 +144,7 @@
   },
   {
     "question": "What are his grades?",
-    "answer": "8-time Dean's Lister with a GWA of 3.68/4.00.",
+    "answer": "9-time Dean's Lister with a GWA of 3.68/4.00.",
     "keywords": [
       "deans list",
       "gwa",
@@ -205,7 +205,7 @@
   },
   {
     "question": "What is StayNest?",
-    "answer": "An Airbnb-style booking system in VB.NET that he's currently building: guests book, hosts list, admins approve, with a MySQL database, an MS Access backup and full documentation.",
+    "answer": "An Airbnb-style booking system in VB.NET that he built: guests book, hosts list, admins approve, with a MySQL database, an MS Access backup and full documentation.",
     "keywords": [
       "staynest",
       "booking",
@@ -290,7 +290,7 @@
   },
   {
     "question": "Can I get his resume?",
-    "answer": "TODO(rafael): \"Ask through the contact form\" or link a PDF without the phone number.",
+    "answer": "Ask through the contact form",
     "keywords": [
       "resume",
       "cv"
@@ -345,8 +345,8 @@
     ],
     "links": [
       {
-        "label": "Off the Clock",
-        "url": "/about#off-the-clock"
+        "label": "About him",
+        "url": "/about"
       }
     ],
     "order": 21

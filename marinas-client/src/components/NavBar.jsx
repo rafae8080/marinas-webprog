@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { coords } from "../data/site";
+import SiteLogo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
@@ -19,7 +20,7 @@ const desktopClass = ({ isActive }) =>
 
 const Logo = ({ onClick }) => (
   <Link viewTransition to="/" onClick={onClick} className="flex shrink-0 items-center" aria-label="Rafael Marinas, home">
-    <img src="/raf_logo.png" alt="" width="150" height="50" className="h-9 w-auto night:invert sm:h-10" />
+    <SiteLogo />
   </Link>
 );
 
