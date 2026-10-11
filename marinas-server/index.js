@@ -16,20 +16,31 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS: allow origins from CLIENT_ORIGIN (comma-separated) plus local dev (vite dev and vite preview)
+// CORS: allow origins from CLIENT_ORIGIN (comma-separated) plus local dev (vite dev and vite preview).
+// An entry may contain one `*` for Vercel's per-deployment URLs, e.g.
+// https://marinas-client-*-rafae8080s-projects.vercel.app. The `*` matches letters and digits only (no dots or
+// dashes), so it can't stretch into another account's URL.
 const allowedOrigins = [
   ...(process.env.CLIENT_ORIGIN || "")
     .split(",")
-    .map((o) => o.trim())
+    .map((o) => o.trim().replace(/\/+$/, ""))
     .filter(Boolean),
   "http://localhost:5173",
   "http://localhost:4173",
 ];
 
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const originPatterns = allowedOrigins
+  .filter((o) => o.includes("*"))
+  .map((o) => new RegExp(`^${o.split("*").map(escapeRegExp).join("[a-z0-9]+")}$`));
+
+const isAllowedOrigin = (origin) =>
+  allowedOrigins.includes(origin) || originPatterns.some((pattern) => pattern.test(origin));
+
 const corsOptions = {
   origin: (origin, callback) => {
     // Requests with no Origin header (curl, server-to-server) are allowed
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    if (!origin || isAllowedOrigin(origin)) return callback(null, true);
     return callback(null, false);
   },
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
