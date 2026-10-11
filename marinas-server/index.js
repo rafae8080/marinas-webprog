@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const articleRoutes = require("./routes/articleRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use(async (req, res, next) => {
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/articles", articleRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Error Handling
 app.use((err, req, res, next) => {
